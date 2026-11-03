@@ -20,6 +20,8 @@ function obtenerProductos() {
 function normalizarMarca(marca) {
     return String(marca || "")
         .trim()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
         .toLocaleUpperCase("es-CO")
         .replace(/_/g, " ")
         .replace(/\s+/g, " ");
