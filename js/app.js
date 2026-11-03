@@ -190,7 +190,13 @@ function configurarVistaMarca() {
         };
 
         if (config.logo) {
-            logoImagen.src = config.logo;
+            logoImagen.src = new URL(config.logo, document.baseURI).href;
+        } else {
+            logoImagen.hidden = true;
+        
+            if (logoTexto) {
+                logoTexto.hidden = false;
+            }
         }
     }
 
