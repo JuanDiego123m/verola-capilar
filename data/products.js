@@ -330,7 +330,7 @@ const productosEtniker = [
         precio: 41500,
         presentacion: "1 kg",
         categoria: "Tratamiento",
-        imagen: "img/etniker/Tratamiento_amazonía.jpeg",
+        imagen: "img/etniker/Tratamiento_amazonia.jpeg",
         descripcion: "Tratamiento 4 en 1 de reparación profunda, formulado con MagNutSe, açaí, cacay, cupuaçu y proteína vegetal.",
         disponible: true
     },
