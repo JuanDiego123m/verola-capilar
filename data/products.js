@@ -1505,18 +1505,18 @@ const productosOtros = [
         precio: 38000,
         presentacion: "100 ml",
         categoria: "Finalizador",
-        imagen: "img/otros/Oleo_extraordinario_elvive.png",
+        imagen: "img/otros/Oleo_extraordinario_elvive.jpeg",
         descripcion: "Tratamiento tipo aceite formulado con 6 óleos de flores preciosas que brindan nutrición intensa, brillo extraordinario, control del frizz y protección térmica.",
         disponible: true,
         destacado: true
     },
     {
         id: 124,
-        nombre: "Mascarilla Karseell Colágeno",
+        nombre: "Mascarilla Karsell Colágeno",
         precio: 68000,
         presentacion: "500 g",
         categoria: "Mascarillas",
-        imagen: "img/otros/Mascarilla_karsell_colageno.png",
+        imagen: "img/otros/Mascarilla_Karsell_colageno.jpeg",
         descripcion: "Mascarilla enriquecida con colágeno concentrado, keratina y aceite de argán que rescata cabellos procesados y ultrasecos en 10 min, nutriendo y controlando el frizz de manera definitiva.",
         disponible: true,
         destacado: true
