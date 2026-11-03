@@ -72,7 +72,7 @@ const configuracionMarcas = {
     BOTANICO: {
         nombre: "RITUAL BOTÁNICO",
         descripcion: "Descubre los productos de Ritual Botánico disponibles en nuestro catálogo.",
-        logo: "img/botanico/logo-botanico.jpeg"
+        logo: "img/botanico/logo_botanico.jpeg"
     },
 
     POCION: {
@@ -133,7 +133,9 @@ function configurarVistaMarca() {
     const logoImagen = document.getElementById("brand-logo-image");
     const logoTexto = document.getElementById("brand-logo-text");
 
-    if (titulo) titulo.textContent = `Productos ${config.nombre}`;
+    if (titulo) {
+        titulo.textContent = config.nombre;
+    }
     if (descripcion) descripcion.textContent = config.descripcion;
 
     if (encabezado) {

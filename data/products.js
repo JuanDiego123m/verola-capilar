@@ -130,7 +130,7 @@ const productosClick = [
         precio: 57000,
         presentacion: "100 ml",
         categoria: "Perfumes",
-        imagen: "img/click_hair/perfume_capilar_(miel_masmelo).jpeg",
+        imagen: "img/click_hair/Perfume_capilar_(miel_masmelo).jpeg",
         descripcion: "Perfume gourmet de alta concentración con notas de masmelo, vainilla y crema batida, que envuelven el cabello con una fragancia dulce y duradera hasta por 48 h.",
         disponible: true
     },
