@@ -1,0 +1,613 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="VEROLA CAPILAR - Catálogo profesional de productos para el cuidado del cabello."
+    >
+
+    <meta name="theme-color" content="#c98f8c">
+
+    <title>VEROLA CAPILAR | Catálogo</title>
+
+    <!-- Fuentes e iconos -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- Estilos principales -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <!-- ==========================================
+         BARRA SUPERIOR
+    =========================================== -->
+
+    <div class="top-bar">
+        <div class="container top-bar-container">
+            <span>
+                Envíos y atención personalizada para tu cuidado capilar
+            </span>
+        </div>
+    </div>
+
+
+    <!-- ==========================================
+         ENCABEZADO Y NAVEGACIÓN
+    =========================================== -->
+
+    <header class="header">
+        <div class="container header-container">
+
+            <!-- Logo -->
+            <a
+                href="index.html"
+                class="logo"
+                aria-label="VEROLA CAPILAR - Inicio"
+            >
+                <img
+                    src="img/logo-verola.jpeg"
+                    alt="Logo VEROLA CAPILAR"
+                >
+            </a>
+
+            <!-- Menú principal -->
+            <nav class="nav" aria-label="Navegación principal">
+                <a href="index.html">Inicio</a>
+                <a href="#catalogo">Catálogo</a>
+                <a href="#marcas">Marcas</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+
+            <!-- Botón del pedido -->
+            <button
+                type="button"
+                class="cart-button"
+                onclick="abrirCarrito()"
+                aria-label="Abrir pedido"
+            >
+                <span class="cart-icon">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </span>
+
+                <span class="cart-text">Pedido</span>
+
+                <span
+                    id="contador-carrito"
+                    class="cart-counter"
+                    aria-live="polite"
+                >0</span>
+            </button>
+
+        </div>
+    </header>
+
+
+    <!-- ==========================================
+         CONTENIDO PRINCIPAL
+    =========================================== -->
+
+    <main>
+
+        <!-- Portada principal -->
+        <section id="inicio" class="hero">
+            <div class="container hero-container">
+
+                <div class="hero-image">
+                    <img
+                        src="img/hero-verola.jpeg"
+                        alt="Productos profesionales VEROLA CAPILAR"
+                    >
+                </div>
+
+                <div class="hero-content">
+                    <span class="hero-subtitle">
+                        VEROLA CAPILAR
+                    </span>
+
+                    <h1>
+                        Cuidado capilar
+                        <span>que transforma.</span>
+                    </h1>
+
+                    <p>
+                        Descubre el poder que
+                        marcas colombianas tienen para ofrecerte.
+                        Es momento de un cambio en tu rutina de cuidado capilar.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a
+                            href="#catalogo"
+                            class="button button-primary"
+                        >
+                            Explorar catálogo
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- Portada individual de cada marca -->
+        <section
+            id="marca-portada"
+            class="brand-hero"
+            hidden
+        >
+            <div class="container brand-hero-inner">
+
+                <a class="brand-back" href="index.html">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Volver a todas las marcas
+                </a>
+
+                <div class="brand-logo-frame">
+                    <img
+                        id="brand-logo-image"
+                        src=""
+                        alt=""
+                        hidden
+                    >
+
+                    <span
+                        id="brand-logo-text"
+                        class="brand-logo-text"
+                    >
+                        MILAGROS
+                    </span>
+                </div>
+
+                <span class="section-eyebrow">
+                    CATÁLOGO POR MARCA
+                </span>
+
+                <h1 id="brand-title">
+                    Productos MILAGROS
+                </h1>
+
+                <p id="brand-description">
+                    Descubre los productos de esta marca.
+                </p>
+
+                <a
+                    href="#catalogo"
+                    class="button button-primary"
+                >
+                    Ver productos
+                </a>
+
+            </div>
+        </section>
+
+
+        <!-- Beneficios de la tienda -->
+        <section class="benefits">
+            <div class="container benefits-grid">
+
+                <div class="benefit-item">
+                    <span class="benefit-icon">
+                        <i class="fa-solid fa-spa"></i>
+                    </span>
+
+                    <div>
+                        <strong>Productos seleccionados</strong>
+                        <p>
+                            Opciones pensadas para el cuidado capilar.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <span class="benefit-icon">
+                        <i class="fa-solid fa-heart"></i>
+                    </span>
+
+                    <div>
+                        <strong>Atención personalizada</strong>
+                        <p>
+                            Te ayudamos a encontrar lo que necesitas.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <span class="benefit-icon">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </span>
+
+                    <div>
+                        <strong>Solicita por WhatsApp</strong>
+                        <p>
+                            Consulta disponibilidad y realiza tu pedido.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ======================================
+             CATÁLOGO DE PRODUCTOS
+        ======================================= -->
+
+        <section id="catalogo" class="catalogo">
+            <div class="container">
+
+                <!-- Encabezado del catálogo -->
+                <div class="section-header">
+                    <span class="section-eyebrow">
+                        VEROLA CAPILAR
+                    </span>
+
+                    <h2>Nuestro catálogo</h2>
+
+                    <p>
+                        Explora nuestros productos y selecciona
+                        los que deseas consultar.
+                    </p>
+                </div>
+
+                <!-- Buscador -->
+                <div class="search-container">
+                    <div class="search-box">
+
+                        <span
+                            class="search-icon"
+                            aria-hidden="true"
+                        >
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </span>
+
+                        <input
+                            type="search"
+                            id="buscador"
+                            placeholder="Buscar productos, marcas o características..."
+                            autocomplete="off"
+                            oninput="buscarProductos()"
+                            aria-label="Buscar productos"
+                        >
+
+                    </div>
+                </div>
+
+                <!-- Filtros por marca -->
+                <div class="filter-title" id="marcas">
+                    <span>Explora por marca</span>
+                </div>
+
+                <div
+                    id="categorias"
+                    class="categories"
+                    aria-label="Marcas de productos"
+                >
+                    <!-- Las marcas se generan desde app.js -->
+                </div>
+
+                <!-- Contenedor de productos -->
+                <div
+                    id="productos"
+                    class="products-grid"
+                    aria-live="polite"
+                >
+                    <!-- Los productos se generan desde app.js -->
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ======================================
+             CONTACTO Y ASESORÍA
+        ======================================= -->
+
+        <section id="contacto" class="contact-section">
+            <div class="container">
+
+                <div class="contact-card">
+
+                    <div class="contact-content">
+                        <span class="section-eyebrow">
+                            ATENCIÓN PERSONALIZADA
+                        </span>
+
+                        <h2>¿Necesitas asesoría?</h2>
+
+                        <p>
+                            Escríbenos por WhatsApp para recibir
+                            información sobre nuestros productos,
+                            disponibilidad, formas de pago y entrega.
+                        </p>
+
+                        <button
+                            type="button"
+                            class="whatsapp-button contact-whatsapp"
+                            onclick="solicitarAsesoriasWhatsApp()"
+                        >
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <span>Habla por WhatsApp</span>
+                        </button>
+                    </div>
+
+                    <div class="contact-decoration">
+                        <span>V</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ==========================================
+         CARRITO DE COMPRAS / PEDIDO
+    =========================================== -->
+
+    <div
+        id="carrito-overlay"
+        class="cart-overlay"
+        onclick="cerrarCarrito(event)"
+    >
+        <aside
+            class="cart"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="titulo-carrito"
+        >
+
+            <!-- Cabecera -->
+            <div class="cart-header">
+                <div>
+                    <span class="cart-eyebrow">
+                        VEROLA CAPILAR
+                    </span>
+
+                    <h2 id="titulo-carrito">
+                        Tu pedido
+                    </h2>
+                </div>
+
+                <button
+                    type="button"
+                    class="close-cart"
+                    onclick="cerrarCarrito()"
+                    aria-label="Cerrar pedido"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Productos seleccionados -->
+            <div id="carrito-productos">
+                <!-- El contenido se genera desde app.js -->
+            </div>
+
+            <!-- Resumen y acciones -->
+            <div class="cart-footer">
+
+                <div class="cart-total">
+                    <span>Total aproximado</span>
+
+                    <strong id="carrito-total">
+                        $0
+                    </strong>
+                </div>
+
+                <button
+                    type="button"
+                    class="whatsapp-button"
+                    onclick="enviarPedidoWhatsApp()"
+                >
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>Solicitar pedido por WhatsApp</span>
+                </button>
+
+                <button
+                    type="button"
+                    class="clear-cart"
+                    onclick="vaciarCarrito()"
+                >
+                    <i class="fa-solid fa-trash-can"></i>
+                    Vaciar pedido
+                </button>
+
+            </div>
+
+        </aside>
+    </div>
+
+
+    <!-- ==========================================
+         BOTÓN FLOTANTE DE WHATSAPP
+    =========================================== -->
+
+    <button
+        type="button"
+        class="whatsapp-floating"
+        onclick="solicitarAsesoriasWhatsApp()"
+        aria-label="Contactar a VEROLA CAPILAR por WhatsApp"
+        title="Hablar por WhatsApp"
+    >
+        <i class="fa-brands fa-whatsapp"></i>
+    </button>
+
+
+    <!-- ==========================================
+         PIE DE PÁGINA
+    =========================================== -->
+
+    <footer id="footer" class="footer">
+        <div class="container footer-container">
+
+            <div class="footer-grid">
+
+                <!-- Información de la marca -->
+                <div class="footer-brand">
+                    <img
+                        src="img/logo-verola.jpeg"
+                        alt="VEROLA CAPILAR"
+                        class="footer-logo"
+                    >
+
+                    <h3>VEROLA CAPILAR</h3>
+
+                    <p>
+                        Tu espacio de confianza para encontrar
+                        productos de cuidado capilar de diferentes marcas.
+                    </p>
+
+                    <span class="footer-slogan">
+                        Belleza, cuidado y confianza.
+                    </span>
+                </div>
+
+                <!-- Navegación -->
+                <div class="footer-column">
+                    <h4>Explora</h4>
+
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#catalogo">Catálogo</a></li>
+                        <li><a href="#marcas">Nuestras marcas</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <!-- Atención al cliente -->
+                <div class="footer-column">
+                    <h4>Atención al cliente</h4>
+
+                    <ul>
+                        <li>
+                            <a
+                                href="#contacto"
+                                onclick="solicitarAsesoriasWhatsApp(); return false;"
+                            >
+                                Asesoría personalizada
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="#contacto"
+                                onclick="solicitarAsesoriasWhatsApp(); return false;"
+                            >
+                                Información de productos
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="#contacto"
+                                onclick="solicitarAsesoriasWhatsApp(); return false;"
+                            >
+                                Formas de entrega
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contacto por WhatsApp -->
+                <div class="footer-column footer-contact">
+                    <h4>¿Necesitas ayuda?</h4>
+
+                    <p>
+                        Estamos disponibles para orientarte
+                        y ayudarte a elegir tus productos.
+                    </p>
+
+                    <button
+                        type="button"
+                        class="footer-whatsapp"
+                        onclick="solicitarAsesoriasWhatsApp()"
+                    >
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <span>Hablar por WhatsApp</span>
+                    </button>
+                </div>
+
+            </div>
+
+
+            <!-- Redes sociales -->
+            <div class="footer-social">
+                <h4>Síguenos en nuestras redes</h4>
+
+                <div class="social-links">
+                    <a
+                        href="#"
+                        aria-label="Instagram"
+                        title="Instagram"
+                    >
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                    <a
+                        href="#"
+                        aria-label="Facebook"
+                        title="Facebook"
+                    >
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+
+                    <a
+                        href="#"
+                        aria-label="TikTok"
+                        title="TikTok"
+                    >
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                </div>
+            </div>
+
+
+            <!-- Información legal y navegación superior -->
+            <div class="footer-bottom">
+                <p>
+                    © <span id="footer-year"></span>
+                    VEROLA CAPILAR. Todos los derechos reservados.
+                </p>
+
+                <p>
+                    Derechos reservados por
+                    <strong>VEROLA_OFICIAL</strong>
+                </p>
+
+                <button
+                    type="button"
+                    class="back-to-top"
+                    onclick="volverAlInicio()"
+                >
+                    Volver arriba
+                    <i class="fa-solid fa-arrow-up"></i>
+                </button>
+            </div>
+
+        </div>
+    </footer>
+
+
+    <!-- ==========================================
+         ARCHIVOS JAVASCRIPT
+    =========================================== -->
+
+    <!-- Datos de los productos -->
+    <script src="data/products.js"></script>
+
+    <!-- Funcionalidades de la aplicación -->
+    <script src="js/app.js"></script>
+
+</body>
+</html>

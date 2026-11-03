@@ -1,0 +1,289 @@
+/* ==========================================
+   FOOTER - VEROLA CAPILAR
+   Diseño minimalista y elegante
+========================================== */
+
+.footer {
+    padding: 48px 0 18px;
+    background: #f7eeeb;
+    border-top: 1px solid #eadbd6;
+}
+
+.footer .container {
+    width: min(1200px, 90%);
+    margin: 0 auto;
+}
+
+/* DISTRIBUCIÓN */
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr 1.15fr 1.3fr;
+    gap: 45px;
+    align-items: start;
+}
+
+/* MARCA */
+
+.footer-brand {
+    max-width: 280px;
+}
+
+.footer-logo {
+    width: 66px;
+    height: 66px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 13px;
+    transition: transform .3s ease;
+}
+
+.footer-logo:hover {
+    transform: scale(1.05);
+}
+
+.footer-brand h3 {
+    color: #332725;
+    font-size: 1rem;
+    letter-spacing: 1.3px;
+    margin-bottom: 9px;
+}
+
+.footer-brand p,
+.footer-contact p {
+    color: #75635e;
+    font-size: .84rem;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.footer-slogan {
+    display: inline-block;
+    margin-top: 12px;
+    color: #ad7772;
+    font-family: Georgia, serif;
+    font-size: .88rem;
+    font-style: italic;
+}
+
+/* COLUMNAS */
+
+.footer-column h4 {
+    color: #332725;
+    font-size: .9rem;
+    font-weight: 700;
+    margin-bottom: 19px;
+}
+
+.footer-column h4::after {
+    content: "";
+    display: block;
+    width: 25px;
+    height: 2px;
+    margin-top: 9px;
+    background: #c58d87;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column li {
+    margin-bottom: 12px;
+}
+
+.footer-column li a {
+    color: #75635e;
+    font-size: .83rem;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.footer-column li a:hover {
+    color: #ad7772;
+}
+
+/* CONTACTO */
+
+.footer-contact p {
+    color: #75635e;
+    font-size: .84rem;
+    line-height: 1.7;
+}
+
+/* WHATSAPP */
+
+.footer-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    margin-top: 15px;
+    padding: 12px 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #25D366;
+    color: #073b20;
+
+    font-family: inherit;
+    font-size: .85rem;
+    font-weight: 700;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    transition: all .25s ease;
+}
+
+.footer-whatsapp i {
+    font-size: 19px;
+}
+
+.footer-whatsapp:hover {
+    background: #20bd5b;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(37, 211, 102, .2);
+}
+
+.footer-whatsapp:active {
+    transform: scale(.97);
+}
+
+/* REDES SOCIALES */
+
+.footer-social {
+    margin-top: 25px;
+}
+
+.footer-social h4 {
+    color: #332725;
+    font-size: .88rem;
+    margin-bottom: 12px;
+}
+
+.social-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.social-links a {
+    color: #ad7772;
+    font-size: .8rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.social-links a:hover {
+    color: #704843;
+}
+
+/* PARTE INFERIOR */
+
+.footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-top: 32px;
+    padding-top: 17px;
+
+    border-top: 1px solid #e6d6d1;
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: #806e68;
+    font-size: .73rem;
+}
+
+.footer-bottom strong {
+    color: #ad7772;
+}
+
+/* VOLVER ARRIBA */
+
+.back-to-top {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #ad7772;
+
+    font-family: inherit;
+    font-size: .76rem;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: color .2s ease;
+}
+
+.back-to-top:hover {
+    color: #704843;
+}
+
+/* TABLET */
+
+@media (max-width: 900px) {
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 35px;
+    }
+
+    .footer-brand {
+        max-width: 100%;
+    }
+}
+
+/* CELULAR */
+
+@media (max-width: 520px) {
+    .footer {
+        padding: 38px 0 18px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px 20px;
+    }
+
+    .footer-brand,
+    .footer-contact {
+        grid-column: 1 / -1;
+    }
+
+    .footer-brand {
+        max-width: 320px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .footer-whatsapp {
+        max-width: 100%;
+    }
+}
+
+/* CELULARES PEQUEÑOS */
+
+@media (max-width: 350px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-brand,
+    .footer-contact {
+        grid-column: auto;
+    }
+}

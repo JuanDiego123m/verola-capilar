@@ -1,0 +1,36 @@
+:root {
+    /* --- NUEVA TIPOGRAFÍA PARA TÍTULOS --- */
+    --fuente-titulos: 'Playfair Display', serif;
+
+    --fondo: #fbf7f5;
+    --fondo-secundario: #f6eeeb;
+    --tarjeta: #ffffff;
+    --tarjeta-hover: #fffafa;
+
+    --borde: #eadbd6;
+    --borde-hover: #d9bcb4;
+
+    --texto: #342a28;
+    --texto-secundario: #796b67;
+    --texto-suave: #a3928c;
+
+    --rosa: #c98f8c;
+    --rosa-oscuro: #a96f6b;
+    --rosa-claro: #f3dedd;
+    --rosa-muy-claro: #fcf3f1;
+
+    --nude: #d8b7a8;
+    --nude-claro: #f4e8e2;
+    --crema: #faf1ec;
+
+    --verde: #25d366;
+    --verde-oscuro: #128c4a;
+
+    --rojo: #c94c4c;
+    --rojo-claro: #f8dddd;
+
+    --sombra: 0 8px 30px rgba(91, 65, 58, 0.10);
+    --sombra-hover: 0 15px 40px rgba(91, 65, 58, 0.16);
+
+    --radio: 16px;
+}

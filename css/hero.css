@@ -1,0 +1,217 @@
+/* ==========================================
+   HERO
+========================================== */
+
+.hero {
+    width: 100%;
+    background: linear-gradient(
+        135deg,
+        #f8eeeb 0%,
+        #fffaf8 50%,
+        #f4e3df 100%
+    );
+    padding: 35px 0;
+}
+
+.hero-container {
+    min-height: 560px;
+    display: grid;
+    grid-template-columns: 58% 42%;
+    align-items: stretch;
+    overflow: hidden;
+    border: 1px solid var(--borde);
+    border-radius: 24px;
+    background: #ffffff;
+    box-shadow: 0 12px 40px rgba(91, 65, 58, 0.10);
+}
+
+/* ==========================================
+   IMAGEN HERO
+========================================== */
+
+.hero-image {
+    position: relative;
+    min-height: 560px;
+    overflow: hidden;
+    background: #eee2dd;
+}
+
+.hero-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0) 70%,
+        rgba(255,250,248,0.18) 100%
+    );
+    pointer-events: none;
+}
+
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.7s ease;
+}
+
+.hero-container:hover .hero-image img {
+    transform: scale(1.025);
+}
+
+/* ==========================================
+   CONTENIDO HERO
+========================================== */
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 55px 55px 55px 48px;
+    background: linear-gradient(
+        180deg,
+        #fffdfc 0%,
+        #fff8f6 100%
+    );
+}
+
+.hero-subtitle {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: var(--rosa-oscuro);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    margin-bottom: 20px;
+    color: var(--texto);
+    font-size: clamp(2.8rem, 4.2vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -1.8px;
+}
+
+.hero h1 span {
+    display: block;
+    color: var(--rosa-oscuro);
+}
+
+.hero p {
+    max-width: 500px;
+    margin-bottom: 28px;
+    color: var(--texto-secundario);
+    font-size: 0.98rem;
+    line-height: 1.7;
+}
+
+/* ==========================================
+   BOTONES HERO
+========================================== */
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 46px;
+    padding: 12px 21px;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 700;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+}
+
+.button-primary {
+    background: var(--rosa);
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(169, 111, 107, 0.20);
+}
+
+.button-primary:hover {
+    background: var(--rosa-oscuro);
+}
+
+.button-secondary {
+    background: #ffffff;
+    color: var(--rosa-oscuro);
+    border: 1px solid var(--borde);
+}
+
+.button-secondary:hover {
+    background: var(--rosa-muy-claro);
+    border-color: var(--rosa);
+}
+
+/* ==========================================
+   BENEFICIOS
+========================================== */
+
+.benefits {
+    padding: 25px 0;
+    background: #ffffff;
+    border-bottom: 1px solid var(--borde);
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.benefit {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 12px;
+}
+
+.benefit-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--rosa-muy-claro);
+    color: var(--rosa-oscuro);
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.benefit strong {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--texto);
+    font-size: 0.84rem;
+}
+
+.benefit span {
+    display: block;
+    color: var(--texto-suave);
+    font-size: 0.73rem;
+    line-height: 1.4;
+}
