@@ -105,48 +105,69 @@ function obtenerConfiguracionMarca(marca) {
 }
 
 
+
 function configurarVistaMarca() {
     const esVistaMarca = marcaActual !== "TODAS";
 
+    // Elementos principales
     const heroPrincipal = document.querySelector(".hero");
     const portadaMarca = document.getElementById("marca-portada");
-
-    if (heroPrincipal) heroPrincipal.hidden = esVistaMarca;
-    if (portadaMarca) portadaMarca.hidden = !esVistaMarca;
-
     const encabezado = document.querySelector(".section-header h2");
 
+    // Mostrar u ocultar portada según la vista
+    if (heroPrincipal) {
+        heroPrincipal.hidden = esVistaMarca;
+    }
+
+    if (portadaMarca) {
+        portadaMarca.hidden = !esVistaMarca;
+    }
+
+    // Vista general del catálogo
     if (!esVistaMarca) {
         document.title = "VEROLA CAPILAR | Catálogo";
-        if (encabezado) encabezado.textContent = "Nuestro catálogo";
+
+        if (encabezado) {
+            encabezado.textContent = "Nuestro catálogo";
+        }
+
         return;
     }
 
+    // Obtener configuración de la marca
     const config = obtenerConfiguracionMarca(marcaActual) || {
         nombre: marcaActual,
         descripcion: `Explora los productos de ${marcaActual} disponibles en Verola Capilar.`,
         logo: ""
     };
 
+    // Elementos de la portada
     const titulo = document.getElementById("brand-title");
     const descripcion = document.getElementById("brand-description");
     const logoImagen = document.getElementById("brand-logo-image");
     const logoTexto = document.getElementById("brand-logo-text");
 
+    // Actualizar título y descripción
     if (titulo) {
         titulo.textContent = config.nombre;
     }
-    if (descripcion) descripcion.textContent = config.descripcion;
 
+    if (descripcion) {
+        descripcion.textContent = config.descripcion;
+    }
+
+    // Actualizar encabezado del catálogo
     if (encabezado) {
         encabezado.textContent = `Catálogo ${config.nombre}`;
     }
 
+    // Configurar logo alternativo de texto
     if (logoTexto) {
         logoTexto.textContent = config.nombre;
-        logoTexto.hidden = Boolean(config.logo);
+        logoTexto.hidden = false;
     }
 
+    // Configurar imagen del logo
     if (logoImagen) {
         logoImagen.hidden = true;
         logoImagen.removeAttribute("src");
@@ -154,21 +175,26 @@ function configurarVistaMarca() {
 
         logoImagen.onload = () => {
             logoImagen.hidden = false;
-            if (logoTexto) logoTexto.hidden = true;
+
+            if (logoTexto) {
+                logoTexto.hidden = true;
+            }
         };
 
         logoImagen.onerror = () => {
             logoImagen.hidden = true;
-            if (logoTexto) logoTexto.hidden = false;
+
+            if (logoTexto) {
+                logoTexto.hidden = false;
+            }
         };
 
         if (config.logo) {
             logoImagen.src = config.logo;
-        } else if (logoTexto) {
-            logoTexto.hidden = false;
         }
     }
 
+    // Actualizar título de la pestaña
     document.title = `${config.nombre} | VEROLA CAPILAR`;
 }
 
