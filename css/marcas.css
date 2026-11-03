@@ -1,3 +1,51 @@
+
+/* ==========================================
+   VISIBILIDAD
+========================================== */
+
+[hidden] {
+    display: none !important;
+}
+
+/* ==========================================
+   PORTADA INDIVIDUAL DE MARCA
+========================================== */
+
+.brand-hero {
+    padding: 58px 0 64px;
+    background: linear-gradient(
+        135deg,
+        #fffaf8 0%,
+        #f3ded9 55%,
+        #f9efeb 100%
+    );
+    border-bottom: 1px solid var(--borde);
+}
+
+.brand-hero-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* ==========================================
+   VOLVER
+========================================== */
+
+.brand-back {
+    align-self: flex-start;
+    margin-bottom: 28px;
+    color: var(--rosa-oscuro);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.brand-back:hover {
+    text-decoration: underline;
+}
+
 /* ==========================================
    LOGO DE MARCA
 ========================================== */
@@ -6,6 +54,7 @@
     width: 150px;
     height: 150px;
     min-width: 150px;
+    flex-shrink: 0;
     margin-bottom: 22px;
     display: flex;
     align-items: center;
@@ -39,18 +88,48 @@
     word-break: normal;
 }
 
+/* ==========================================
+   TÍTULO Y DESCRIPCIÓN
+========================================== */
 
 .brand-hero h1 {
+    width: 100%;
     margin: 5px 0 12px;
     color: var(--texto);
     font-size: clamp(2rem, 4vw, 3rem);
     line-height: 1.15;
+    text-align: center;
     overflow-wrap: normal;
     word-break: normal;
 }
 
 .brand-hero p {
     max-width: 650px;
-    margin-bottom: 24px;
+    margin: 0 auto 24px;
     color: var(--texto-secundario);
+    text-align: center;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 600px) {
+    .brand-hero {
+        padding: 35px 0 45px;
+    }
+
+    .brand-logo-frame {
+        width: 125px;
+        height: 125px;
+        min-width: 125px;
+    }
+
+    .brand-hero h1 {
+        font-size: 2rem;
+    }
+
+    .brand-hero p {
+        padding: 0 12px;
+    }
 }

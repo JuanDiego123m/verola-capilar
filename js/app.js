@@ -106,15 +106,15 @@ function obtenerConfiguracionMarca(marca) {
 
 
 
+
 function configurarVistaMarca() {
     const esVistaMarca = marcaActual !== "TODAS";
 
-    // Elementos principales
     const heroPrincipal = document.querySelector(".hero");
     const portadaMarca = document.getElementById("marca-portada");
     const encabezado = document.querySelector(".section-header h2");
 
-    // Mostrar u ocultar portada según la vista
+    // Mostrar u ocultar las portadas
     if (heroPrincipal) {
         heroPrincipal.hidden = esVistaMarca;
     }
@@ -134,20 +134,19 @@ function configurarVistaMarca() {
         return;
     }
 
-    // Obtener configuración de la marca
+    // Configuración de la marca seleccionada
     const config = obtenerConfiguracionMarca(marcaActual) || {
         nombre: marcaActual,
         descripcion: `Explora los productos de ${marcaActual} disponibles en Verola Capilar.`,
         logo: ""
     };
 
-    // Elementos de la portada
     const titulo = document.getElementById("brand-title");
     const descripcion = document.getElementById("brand-description");
     const logoImagen = document.getElementById("brand-logo-image");
     const logoTexto = document.getElementById("brand-logo-text");
 
-    // Actualizar título y descripción
+    // Actualizar información de la marca
     if (titulo) {
         titulo.textContent = config.nombre;
     }
@@ -156,12 +155,11 @@ function configurarVistaMarca() {
         descripcion.textContent = config.descripcion;
     }
 
-    // Actualizar encabezado del catálogo
     if (encabezado) {
         encabezado.textContent = `Catálogo ${config.nombre}`;
     }
 
-    // Configurar logo alternativo de texto
+    // Configurar texto alternativo del logo
     if (logoTexto) {
         logoTexto.textContent = config.nombre;
         logoTexto.hidden = false;
@@ -170,10 +168,12 @@ function configurarVistaMarca() {
     // Configurar imagen del logo
     if (logoImagen) {
         logoImagen.hidden = true;
+        logoImagen.onload = null;
+        logoImagen.onerror = null;
         logoImagen.removeAttribute("src");
         logoImagen.alt = `Logo ${config.nombre}`;
 
-        logoImagen.onload = () => {
+        logoImagen.onload = function () {
             logoImagen.hidden = false;
 
             if (logoTexto) {
@@ -181,7 +181,7 @@ function configurarVistaMarca() {
             }
         };
 
-        logoImagen.onerror = () => {
+        logoImagen.onerror = function () {
             logoImagen.hidden = true;
 
             if (logoTexto) {
@@ -197,6 +197,7 @@ function configurarVistaMarca() {
     // Actualizar título de la pestaña
     document.title = `${config.nombre} | VEROLA CAPILAR`;
 }
+
 
 
 /* =========================================================
