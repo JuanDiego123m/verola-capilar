@@ -439,7 +439,7 @@ const productosMilagros = [
         id: 34,
         nombre: "Sérum Revitalizante",
         marca: "MILAGROS",
-        precio: 32500,
+        precio: 33000,
         presentacion: "55 ml",
         categoria: "Finalizadores",
         imagen: "img/milagros/Serum1.jpeg",
