@@ -74,8 +74,12 @@ function escaparHTML(valor = "") {
 function obtenerMarcaInicial() {
     const parametros = new URLSearchParams(window.location.search);
     const marca = parametros.get("marca");
-
     return marca ? normalizarMarca(marca) : "TODAS";
+}
+
+function obtenerBusquedaInicial() {
+    const parametros = new URLSearchParams(window.location.search);
+    return parametros.get("q") || "";
 }
 
 let marcaActual = obtenerMarcaInicial();
@@ -619,6 +623,51 @@ function mostrarProductos(lista = obtenerProductos()) {
 }
 
 
+
+function mostrarProductosDestacados(lista, contenedor) {
+    if (!contenedor) return;
+    contenedor.innerHTML = "";
+
+    lista.forEach(producto => {
+        const tarjeta = document.createElement("article");
+        tarjeta.className = "product-card";
+
+        const imagenes = obtenerImagenesProducto(producto);
+        const imagenPrincipal = imagenes[0] || imagenPredeterminada;
+        const disponible = producto.disponible === true;
+
+        const estadoProducto = disponible
+            ? `<span class="product-status available"><i class="fa-solid fa-circle-check"></i> DISPONIBLE</span>`
+            : `<span class="product-status unavailable"><i class="fa-solid fa-circle-xmark"></i> AGOTADO</span>`;
+
+        tarjeta.innerHTML = `
+            <div class="product-image">
+                <img src="${escaparHTML(imagenPrincipal)}" alt="${escaparHTML(producto.nombre)}" onerror="this.onerror=null;this.src='${imagenPredeterminada}'">
+                ${estadoProducto}
+                <span class="product-badge">${escaparHTML(producto.marca || "VEROLA")}</span>
+            </div>
+            <div class="product-info">
+                <span class="product-category">${escaparHTML(producto.categoria || "")}</span>
+                <h3>${escaparHTML(producto.nombre)}</h3>
+                <span class="product-brand">${escaparHTML(producto.marca || "")}</span>
+                <p class="product-description">${escaparHTML((producto.descripcion || "").slice(0, 100))}...</p>
+                <div class="product-bottom">
+                    ${mostrarPrecio(producto)}
+                    <button type="button" class="add-button" data-add-id="${escaparHTML(producto.id)}">
+                        <i class="fa-solid fa-plus"></i> Agregar
+                    </button>
+                </div>
+            </div>
+        `;
+
+        tarjeta.querySelector("[data-add-id]")?.addEventListener("click", () => {
+            agregarAlCarrito(producto.id);
+        });
+
+        contenedor.appendChild(tarjeta);
+    });
+}
+
 /* =========================================================
    8. MOSTRAR MARCAS
 ========================================================= */
@@ -736,14 +785,19 @@ function cambiarOrden() {
 ========================================================= */
 
 function seleccionarMarca(marca) {
+    const esPaginaCatalogo = Boolean(document.getElementById("productos"));
     marcaActual = marca === "Todas" ? "TODAS" : normalizarMarca(marca);
     categoriaActual = "TODAS";
     paginaActual = 1;
 
-    const nuevaURL = marcaActual === "TODAS"
-        ? "index.html"
-        : `index.html?marca=${encodeURIComponent(marca)}`;
+    const queryMarca = marcaActual === "TODAS" ? "" : `?marca=${encodeURIComponent(marca)}`;
 
+    if (!esPaginaCatalogo) {
+        window.location.href = `catalogo.html${queryMarca}`;
+        return;
+    }
+
+    const nuevaURL = `catalogo.html${queryMarca}`;
     window.history.pushState({}, "", nuevaURL);
 
     configurarVistaMarca();
@@ -1056,7 +1110,13 @@ function actualizarAutocompletado(texto) {
     });
 
     dropdown.querySelector("#autocomplete-ver-todos")?.addEventListener("click", () => {
+        const texto = document.getElementById("buscador")?.value || "";
         cerrarAutocompletado();
+        const esPaginaCatalogo = Boolean(document.getElementById("productos"));
+        if (!esPaginaCatalogo) {
+            window.location.href = `catalogo.html?q=${encodeURIComponent(texto)}`;
+            return;
+        }
         const catalogo = document.getElementById("catalogo");
         if (catalogo) {
             const yOffset = -90;
@@ -1449,20 +1509,54 @@ document.addEventListener("click", event => {
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-    configurarVistaMarca();
-    actualizarPlaceholderBuscador();
-    mostrarMarcas();
-    mostrarCategoriasTipos();
-    filtrarProductos();
-    actualizarCarrito();
-    actualizarAnioFooter();
+    const esPaginaCatalogo = Boolean(document.getElementById("productos"));
 
     const buscador = document.getElementById("buscador");
     const clearBtn = document.getElementById("buscador-clear");
+
+    // Si viene con búsqueda por URL (?q=...)
+    const queryInicial = obtenerBusquedaInicial();
+    if (queryInicial && buscador) {
+        buscador.value = queryInicial;
+    }
+
     if (buscador && clearBtn) {
         clearBtn.hidden = !buscador.value;
     }
 
+    // Permitir presionar Enter en el buscador para navegar a catálogo si estamos en otra página
+    if (buscador) {
+        buscador.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                const texto = buscador.value.trim();
+                cerrarAutocompletado();
+                if (!esPaginaCatalogo) {
+                    window.location.href = `catalogo.html?q=${encodeURIComponent(texto)}`;
+                } else {
+                    buscarProductos();
+                }
+            }
+        });
+    }
+
+    if (esPaginaCatalogo) {
+        configurarVistaMarca();
+        actualizarPlaceholderBuscador();
+        mostrarMarcas();
+        mostrarCategoriasTipos();
+        filtrarProductos();
+    } else {
+        // En página de inicio, si hay contenedor de destacados, renderizarlos
+        const contenedorDestacados = document.getElementById("productos-destacados-inicio");
+        if (contenedorDestacados) {
+            const destacados = obtenerProductos().filter(p => p.destacado === true).slice(0, 4);
+            mostrarProductosDestacados(destacados, contenedorDestacados);
+        }
+    }
+
+    actualizarCarrito();
+    actualizarAnioFooter();
     crearModalDetalles();
 });
 

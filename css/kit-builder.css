@@ -1,0 +1,632 @@
+/* =========================================================
+   VEROLA CAPILAR - MÓDULO INTERACTIVO "ARMA TU KIT"
+========================================================= */
+
+.kit-builder-section {
+    padding: 70px 0;
+    background: linear-gradient(180deg, var(--fondo) 0%, var(--rosa-muy-claro) 50%, var(--fondo) 100%);
+    border-top: 1px solid var(--borde);
+    border-bottom: 1px solid var(--borde);
+    position: relative;
+    overflow: hidden;
+}
+
+.kit-builder-header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 35px;
+}
+
+.kit-builder-header .section-eyebrow {
+    display: inline-block;
+    padding: 5px 14px;
+    background: #ffffff;
+    border: 1px solid var(--borde);
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--rosa-oscuro);
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+}
+
+.kit-builder-header h2 {
+    font-size: 2.3rem;
+    color: var(--texto);
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.kit-builder-header h2 span {
+    color: var(--rosa-oscuro);
+}
+
+.kit-builder-header p {
+    color: var(--texto-secundario);
+    font-size: 0.96rem;
+    line-height: 1.6;
+}
+
+/* ==========================================
+   INDICADOR DE PASOS (STEPPER)
+========================================== */
+
+.kit-stepper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+}
+
+.kit-step-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    background: #ffffff;
+    border: 2px solid var(--borde);
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--texto-secundario);
+    transition: all 0.25s ease;
+}
+
+.kit-step-btn .step-number {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--nude-claro);
+    color: var(--rosa-oscuro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+    transition: all 0.25s ease;
+}
+
+.kit-step-btn:hover {
+    border-color: var(--rosa);
+    color: var(--rosa-oscuro);
+    transform: translateY(-1px);
+}
+
+.kit-step-btn.active {
+    background: var(--rosa);
+    border-color: var(--rosa);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(201, 143, 140, 0.35);
+}
+
+.kit-step-btn.active .step-number {
+    background: #ffffff;
+    color: var(--rosa-oscuro);
+}
+
+.kit-step-btn.completed {
+    border-color: var(--verde);
+    color: var(--texto);
+}
+
+.kit-step-btn.completed .step-number {
+    background: var(--verde);
+    color: #ffffff;
+}
+
+/* ==========================================
+   LAYOUT DEL CONSTRUCTOR (GRID PRINCIPAL)
+========================================== */
+
+.kit-builder-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 30px;
+    align-items: start;
+}
+
+/* ==========================================
+   COLUMNA IZQUIERDA: SELECTOR DE PRODUCTOS
+========================================== */
+
+.kit-selector-card {
+    background: #ffffff;
+    border: 1px solid var(--borde);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: 0 8px 30px rgba(91, 65, 58, 0.06);
+}
+
+.kit-step-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--nude-claro);
+}
+
+.kit-step-header-info h3 {
+    font-size: 1.25rem;
+    color: var(--texto);
+    margin-bottom: 4px;
+}
+
+.kit-step-header-info p {
+    font-size: 0.84rem;
+    color: var(--texto-secundario);
+    margin: 0;
+}
+
+/* Filtro rápido por marca dentro del paso */
+.kit-brand-filters {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.kit-brand-btn {
+    padding: 5px 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    background: var(--fondo);
+    color: var(--texto-secundario);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.kit-brand-btn:hover {
+    border-color: var(--rosa);
+    color: var(--rosa-oscuro);
+}
+
+.kit-brand-btn.active {
+    background: var(--rosa);
+    border-color: var(--rosa);
+    color: #ffffff;
+}
+
+/* Cuadrícula de opciones del paso */
+.kit-options-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-height: 480px;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+.kit-options-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.kit-options-grid::-webkit-scrollbar-track {
+    background: var(--nude-claro);
+    border-radius: 10px;
+}
+
+.kit-options-grid::-webkit-scrollbar-thumb {
+    background: var(--rosa);
+    border-radius: 10px;
+}
+
+/* Tarjeta de opción */
+.kit-option-item {
+    position: relative;
+    border: 2px solid var(--borde);
+    border-radius: 14px;
+    padding: 12px;
+    background: #ffffff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.22s ease;
+    user-select: none;
+}
+
+.kit-option-item:hover {
+    border-color: var(--rosa);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(201, 143, 140, 0.18);
+}
+
+.kit-option-item.selected {
+    border-color: var(--rosa-oscuro);
+    background: var(--rosa-muy-claro);
+    box-shadow: 0 0 0 3px rgba(201, 143, 140, 0.25);
+}
+
+.kit-option-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 0.6rem;
+    font-weight: 800;
+    padding: 3px 7px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--rosa-oscuro);
+    border: 1px solid var(--borde);
+}
+
+.kit-option-check {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1.5px solid var(--borde);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.68rem;
+    color: transparent;
+    transition: all 0.2s ease;
+}
+
+.kit-option-item.selected .kit-option-check {
+    background: var(--rosa-oscuro);
+    border-color: var(--rosa-oscuro);
+    color: #ffffff;
+}
+
+.kit-option-img {
+    width: 100%;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    background: var(--fondo);
+    padding: 4px;
+}
+
+.kit-option-item h4 {
+    font-size: 0.82rem;
+    color: var(--texto);
+    margin: 0 0 4px;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 32px;
+}
+
+.kit-option-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 6px;
+}
+
+.kit-option-presentation {
+    font-size: 0.7rem;
+    color: var(--texto-secundario);
+}
+
+.kit-option-price {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--rosa-oscuro);
+}
+
+/* ==========================================
+   COLUMNA DERECHA: CAJA / RESUMEN DEL KIT
+========================================== */
+
+.kit-summary-card {
+    position: sticky;
+    top: 95px;
+    background: #ffffff;
+    border: 1px solid var(--borde);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 10px 35px rgba(91, 65, 58, 0.08);
+}
+
+.kit-summary-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--nude-claro);
+}
+
+.kit-summary-header h3 {
+    font-size: 1.15rem;
+    color: var(--texto);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.kit-summary-badge {
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 4px 9px;
+    border-radius: 12px;
+    background: var(--rosa-muy-claro);
+    color: var(--rosa-oscuro);
+}
+
+/* Ranuras (Slots) de la caja virtual */
+.kit-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.kit-slot {
+    border: 1.5px dashed var(--borde);
+    border-radius: 12px;
+    padding: 10px 12px;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--fondo);
+    transition: all 0.25s ease;
+}
+
+.kit-slot.filled {
+    border-style: solid;
+    border-color: var(--rosa);
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(91, 65, 58, 0.04);
+}
+
+.kit-slot-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--nude-claro);
+    color: var(--rosa-oscuro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.kit-slot.filled .kit-slot-icon {
+    background: transparent;
+    padding: 0;
+}
+
+.kit-slot.filled .kit-slot-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.kit-slot-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.kit-slot-label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--texto-secundario);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.kit-slot-name {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--texto);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 1px 0;
+}
+
+.kit-slot-price {
+    font-size: 0.74rem;
+    color: var(--rosa-oscuro);
+    font-weight: 800;
+}
+
+.kit-slot-remove {
+    background: transparent;
+    border: none;
+    color: var(--texto-suave);
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    transition: color 0.2s ease;
+}
+
+.kit-slot-remove:hover {
+    color: var(--rojo);
+}
+
+/* Total del Kit */
+.kit-total-box {
+    padding: 14px;
+    background: var(--fondo);
+    border-radius: 12px;
+    margin-bottom: 18px;
+}
+
+.kit-total-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.84rem;
+    color: var(--texto-secundario);
+    margin-bottom: 6px;
+}
+
+.kit-total-row.final {
+    margin-bottom: 0;
+    padding-top: 6px;
+    border-top: 1px solid var(--borde);
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--texto);
+}
+
+.kit-total-row.final strong {
+    color: var(--rosa-oscuro);
+    font-size: 1.15rem;
+}
+
+/* Botón agregar kit completo */
+.kit-add-btn {
+    width: 100%;
+    padding: 13px 18px;
+    background: var(--rosa);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(201, 143, 140, 0.35);
+    transition: all 0.25s ease;
+}
+
+.kit-add-btn:hover:not(:disabled) {
+    background: var(--rosa-oscuro);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(169, 111, 107, 0.45);
+}
+
+.kit-add-btn:disabled {
+    background: var(--nude-claro);
+    color: var(--texto-suave);
+    border: 1px solid var(--borde);
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.75;
+}
+
+.kit-reset-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px;
+    background: transparent;
+    border: none;
+    color: var(--texto-secundario);
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: color 0.2s ease;
+}
+
+.kit-reset-btn:hover {
+    color: var(--rosa-oscuro);
+    text-decoration: underline;
+}
+
+/* ==========================================
+   RESPONSIVE DEL CONSTRUCTOR
+========================================== */
+
+@media (max-width: 960px) {
+    .kit-builder-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .kit-summary-card {
+        position: static;
+        order: -1;
+    }
+
+    .kit-options-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 580px) {
+    .kit-builder-section {
+        padding: 50px 0;
+    }
+
+    .kit-builder-header h2 {
+        font-size: 1.7rem;
+    }
+
+    .kit-stepper {
+        gap: 6px;
+    }
+
+    .kit-step-btn {
+        padding: 8px 12px;
+        font-size: 0.74rem;
+    }
+
+    .kit-selector-card {
+        padding: 16px;
+    }
+
+    .kit-options-grid {
+        grid-template-columns: 1fr;
+        max-height: 400px;
+    }
+
+    .kit-summary-card {
+        padding: 18px;
+    }
+}
+
+/* Estilos para accesos directos al Kit */
+.nav-kit-highlight {
+    background: var(--rosa-muy-claro);
+    color: var(--rosa-oscuro) !important;
+    padding: 6px 12px;
+    border-radius: 14px;
+    border: 1px solid var(--rosa);
+    font-size: 0.82rem !important;
+    transition: all 0.2s ease;
+}
+
+.nav-kit-highlight:hover {
+    background: var(--rosa);
+    color: #ffffff !important;
+}
+
+.button-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    border: 1.5px solid var(--rosa);
+    border-radius: 12px;
+    background: #ffffff;
+    color: var(--rosa-oscuro);
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 15px rgba(91, 65, 58, 0.05);
+}
+
+.button-secondary:hover {
+    background: var(--rosa-muy-claro);
+    color: var(--rosa-oscuro);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(201, 143, 140, 0.2);
+}

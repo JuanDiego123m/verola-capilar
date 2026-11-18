@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="VEROLA CAPILAR - Contacto, asesoría capilar personalizada y pedidos por WhatsApp."
+    >
+
+    <meta name="theme-color" content="#c98f8c">
+
+    <title>VEROLA CAPILAR | Contacto y Asesoría</title>
+
+    <!-- Fuentes e iconos -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- Estilos principales -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .contact-page-section {
+            padding: 60px 0 80px;
+            background: var(--fondo);
+        }
+        .contact-page-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+        .contact-box {
+            background: #ffffff;
+            border: 1px solid var(--borde);
+            border-radius: 18px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(91, 65, 58, 0.05);
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+        .contact-box:hover {
+            transform: translateY(-4px);
+            border-color: var(--rosa);
+        }
+        .contact-box-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--rosa-muy-claro);
+            color: var(--rosa-oscuro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin: 0 auto 18px;
+        }
+        .contact-box h3 {
+            font-size: 1.15rem;
+            color: var(--texto);
+            margin-bottom: 8px;
+        }
+        .contact-box p {
+            font-size: 0.88rem;
+            color: var(--texto-secundario);
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+        .faq-section {
+            margin-top: 60px;
+        }
+        .faq-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--texto);
+            margin-bottom: 30px;
+        }
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .faq-card {
+            background: #ffffff;
+            border: 1px solid var(--borde);
+            border-radius: 14px;
+            padding: 22px;
+        }
+        .faq-card h4 {
+            color: var(--rosa-oscuro);
+            font-size: 0.98rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .faq-card p {
+            color: var(--texto-secundario);
+            font-size: 0.86rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+        @media (max-width: 900px) {
+            .contact-page-grid {
+                grid-template-columns: 1fr;
+            }
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==========================================
+         BARRA SUPERIOR
+    =========================================== -->
+
+    <div class="top-bar">
+        <div class="container top-bar-container">
+            <span>
+                Envíos y atención personalizada para tu cuidado capilar
+            </span>
+        </div>
+    </div>
+
+
+    <!-- ==========================================
+         ENCABEZADO Y NAVEGACIÓN
+    =========================================== -->
+
+    <header class="header">
+        <div class="container header-container">
+
+            <!-- Logo -->
+            <a
+                href="index.html"
+                class="logo"
+                aria-label="VEROLA CAPILAR - Inicio"
+            >
+                <img
+                    src="img/logo-verola.jpeg"
+                    alt="Logo VEROLA CAPILAR"
+                >
+            </a>
+
+            <!-- Buscador en la parte superior -->
+            <div class="header-search">
+                <div class="search-box">
+                    <span
+                        class="search-icon"
+                        aria-hidden="true"
+                    >
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+
+                    <input
+                        type="search"
+                        id="buscador"
+                        placeholder="Buscar productos, marcas o características..."
+                        autocomplete="off"
+                        oninput="buscarProductos()"
+                        aria-label="Buscar productos"
+                    >
+
+                    <button
+                        type="button"
+                        id="buscador-clear"
+                        class="search-clear-btn"
+                        onclick="limpiarBuscador()"
+                        aria-label="Limpiar búsqueda"
+                        hidden
+                    >
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+
+                    <!-- Sugerencias de búsqueda rápida -->
+                    <div id="search-autocomplete" class="search-autocomplete" hidden></div>
+                </div>
+            </div>
+
+            <!-- Menú principal -->
+            <nav class="nav" aria-label="Navegación principal">
+                <a href="index.html">Inicio</a>
+                <a href="catalogo.html">Catálogo</a>
+                <a href="arma-tu-kit.html" class="nav-kit-highlight">Arma tu Kit ✨</a>
+                <a href="contacto.html" class="active">Contacto</a>
+            </nav>
+
+            <!-- Botón del pedido -->
+            <button
+                type="button"
+                class="cart-button"
+                onclick="abrirCarrito()"
+                aria-label="Abrir pedido"
+            >
+                <span class="cart-icon">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </span>
+
+                <span class="cart-text">Pedido</span>
+
+                <span
+                    id="contador-carrito"
+                    class="cart-counter"
+                    aria-live="polite"
+                >0</span>
+            </button>
+
+        </div>
+    </header>
+
+
+    <!-- ==========================================
+         CONTENIDO PRINCIPAL: CONTACTO
+    =========================================== -->
+
+    <main class="contact-page-section">
+        <div class="container">
+
+            <!-- Banner principal de contacto -->
+            <div class="contact-card">
+                <div class="contact-content">
+                    <span class="section-eyebrow">
+                        ATENCIÓN PERSONALIZADA
+                    </span>
+
+                    <h2>¿Necesitas asesoría capilar?</h2>
+
+                    <p>
+                        Escríbenos directamente por WhatsApp. Te ayudamos a elegir la rutina perfecta
+                        para tu tipo de cabello, confirmar existencias, formas de pago y tiempos de entrega.
+                    </p>
+
+                    <button
+                        type="button"
+                        class="whatsapp-button contact-whatsapp"
+                        onclick="solicitarAsesoriasWhatsApp()"
+                    >
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <span>Hablar con una asesora por WhatsApp</span>
+                    </button>
+                </div>
+
+                <div class="contact-decoration">
+                    <span>V</span>
+                </div>
+            </div>
+
+            <!-- 3 Cajas de información de contacto -->
+            <div class="contact-page-grid">
+
+                <div class="contact-box">
+                    <div class="contact-box-icon">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <h3>Atención por WhatsApp</h3>
+                    <p>
+                        Línea directa para realizar pedidos, consultar disponibilidad y resolver dudas sobre productos.
+                    </p>
+                    <button type="button" class="button button-primary" style="width: 100%; padding: 10px;" onclick="solicitarAsesoriasWhatsApp()">
+                        Escribir ahora
+                    </button>
+                </div>
+
+                <div class="contact-box">
+                    <div class="contact-box-icon">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <h3>Envíos y Entregas</h3>
+                    <p>
+                        Despachamos productos cuidadosamente empacados con cobertura nacional y entregas locales rápidas.
+                    </p>
+                    <a href="catalogo.html" class="button button-secondary" style="width: 100%; padding: 10px;">
+                        Ver catálogo
+                    </a>
+                </div>
+
+                <div class="contact-box">
+                    <div class="contact-box-icon">
+                        <i class="fa-solid fa-credit-card"></i>
+                    </div>
+                    <h3>Medios de Pago</h3>
+                    <p>
+                        Recibimos transferencias por Nequi, Bancolombia, Bre-B y demás, no olvides enviar tu comprobante.
+                    </p>
+                    <button type="button" class="button button-secondary" style="width: 100%; padding: 10px;" onclick="solicitarAsesoriasWhatsApp()">
+                        Consultar medios
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Preguntas frecuentes -->
+            <div class="faq-section">
+                <h3 class="faq-title">Preguntas Frecuentes</h3>
+
+                <div class="faq-grid">
+                    <div class="faq-card">
+                        <h4><i class="fa-solid fa-circle-question"></i> ¿Los productos son originales?</h4>
+                        <p>Sí, en VEROLA CAPILAR trabajamos directamente con distribuidores oficiales de marcas colombianas certificadas como Milagros, La Poción, Ritual Botánico, Etniker, Click Hair y Olé.</p>
+                    </div>
+
+                    <div class="faq-card">
+                        <h4><i class="fa-solid fa-circle-question"></i> ¿Cómo realizo mi pedido?</h4>
+                        <p>Agrega los productos que deseas a tu bolsa de pedido en el catálogo o arma tu kit en 3 pasos. Al presionar "Solicitar pedido por WhatsApp", se generará automáticamente tu lista detallada para que una asesora confirme y despache.</p>
+                    </div>
+
+                    <div class="faq-card">
+                        <h4><i class="fa-solid fa-circle-question"></i> ¿Hacen envíos?</h4>
+                        <p>Sí, realizamos envíos a toda el Área Metropolitana del Valle de Aburrá, dinos donde te encuentras y si logramos cubrir tu ruta.</p>
+                    </div>
+
+                    <div class="faq-card">
+                        <h4><i class="fa-solid fa-circle-question"></i> ¿Puedo pedir asesoría antes de comprar?</h4>
+                        <p>¡Claro que sí! Escríbenos por WhatsApp contándonos el estado de tu cabello (graso, seco, decolorado, con caída, etc.) y te recomendamos la rutina exacta que necesitas.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+
+    <!-- ==========================================
+         CARRITO DE COMPRAS / PEDIDO
+    =========================================== -->
+
+    <div
+        id="carrito-overlay"
+        class="cart-overlay"
+        onclick="cerrarCarrito(event)"
+    >
+        <aside
+            class="cart"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="titulo-carrito"
+        >
+
+            <div class="cart-header">
+                <div>
+                    <span class="cart-eyebrow">
+                        VEROLA CAPILAR
+                    </span>
+
+                    <h2 id="titulo-carrito">
+                        Tu pedido
+                    </h2>
+                </div>
+
+                <button
+                    type="button"
+                    class="close-cart"
+                    onclick="cerrarCarrito()"
+                    aria-label="Cerrar pedido"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="carrito-productos">
+                <!-- Se genera desde app.js -->
+            </div>
+
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total aproximado</span>
+                    <strong id="carrito-total">$0</strong>
+                </div>
+
+                <button
+                    type="button"
+                    class="whatsapp-button"
+                    onclick="enviarPedidoWhatsApp()"
+                >
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>Solicitar pedido por WhatsApp</span>
+                </button>
+
+                <button
+                    type="button"
+                    class="clear-cart"
+                    onclick="vaciarCarrito()"
+                >
+                    <i class="fa-solid fa-trash-can"></i>
+                    Vaciar pedido
+                </button>
+            </div>
+
+        </aside>
+    </div>
+
+
+    <!-- ==========================================
+         BOTÓN FLOTANTE DE WHATSAPP
+    =========================================== -->
+
+    <button
+        type="button"
+        class="whatsapp-floating"
+        onclick="solicitarAsesoriasWhatsApp()"
+        aria-label="Contactar a VEROLA CAPILAR por WhatsApp"
+        title="Hablar por WhatsApp"
+    >
+        <i class="fa-brands fa-whatsapp"></i>
+    </button>
+
+
+    <!-- ==========================================
+         PIE DE PÁGINA
+    =========================================== -->
+
+    <footer id="footer" class="footer">
+        <div class="container footer-container">
+
+            <div class="footer-grid">
+
+                <div class="footer-brand">
+                    <img
+                        src="img/logo-verola.jpeg"
+                        alt="VEROLA CAPILAR"
+                        class="footer-logo"
+                    >
+
+                    <h3>VEROLA CAPILAR</h3>
+
+                    <p>
+                        Tu espacio de confianza para encontrar
+                        productos de cuidado capilar de diferentes marcas.
+                    </p>
+
+                    <span class="footer-slogan">
+                        Belleza, cuidado y confianza.
+                    </span>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Explora</h4>
+
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li><a href="arma-tu-kit.html">Arma tu Kit ✨</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Atención al cliente</h4>
+
+                    <ul>
+                        <li><a href="contacto.html">Asesoría personalizada</a></li>
+                        <li><a href="contacto.html">Información de productos</a></li>
+                        <li><a href="contacto.html">Formas de entrega</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column footer-contact">
+                    <h4>¿Necesitas ayuda?</h4>
+
+                    <p>
+                        Estamos disponibles para orientarte
+                        y ayudarte a elegir tus productos.
+                    </p>
+
+                    <button
+                        type="button"
+                        class="footer-whatsapp"
+                        onclick="solicitarAsesoriasWhatsApp()"
+                    >
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <span>Hablar por WhatsApp</span>
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="footer-social">
+                <h4>Síguenos en nuestras redes</h4>
+
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" aria-label="TikTok" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>
+                    © <span id="footer-year"></span>
+                    VEROLA CAPILAR. Todos los derechos reservados.
+                </p>
+
+                <p>
+                    Derechos reservados por
+                    <strong>VEROLA_OFICIAL</strong>
+                </p>
+
+                <button
+                    type="button"
+                    class="back-to-top"
+                    onclick="volverAlInicio()"
+                >
+                    Volver arriba
+                    <i class="fa-solid fa-arrow-up"></i>
+                </button>
+            </div>
+
+        </div>
+    </footer>
+
+
+    <!-- ==========================================
+         ARCHIVOS JAVASCRIPT
+    =========================================== -->
+
+    <script src="data/products.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>

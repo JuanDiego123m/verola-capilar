@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -8,12 +7,12 @@
 
     <meta
         name="description"
-        content="VEROLA CAPILAR - Catálogo profesional de productos para el cuidado del cabello."
+        content="VEROLA CAPILAR - Tienda y catálogo profesional de productos para el cuidado capilar de marcas colombianas."
     >
 
     <meta name="theme-color" content="#c98f8c">
 
-    <title>VEROLA CAPILAR | Catálogo</title>
+    <title>VEROLA CAPILAR | Inicio</title>
 
     <!-- Fuentes e iconos -->
     <link
@@ -23,6 +22,7 @@
 
     <!-- Estilos principales -->
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/kit-builder.css">
 </head>
 
 <body>
@@ -78,7 +78,7 @@
                         aria-label="Buscar productos"
                     >
 
-                                        <button
+                    <button
                         type="button"
                         id="buscador-clear"
                         class="search-clear-btn"
@@ -96,10 +96,10 @@
 
             <!-- Menú principal -->
             <nav class="nav" aria-label="Navegación principal">
-                <a href="index.html">Inicio</a>
-                <a href="#catalogo">Catálogo</a>
-                <a href="#marcas">Marcas</a>
-                <a href="#contacto">Contacto</a>
+                <a href="index.html" class="active">Inicio</a>
+                <a href="catalogo.html">Catálogo</a>
+                <a href="arma-tu-kit.html" class="nav-kit-highlight">Arma tu Kit ✨</a>
+                <a href="contacto.html">Contacto</a>
             </nav>
 
             <!-- Botón del pedido -->
@@ -127,12 +127,12 @@
 
 
     <!-- ==========================================
-         CONTENIDO PRINCIPAL
+         CONTENIDO PRINCIPAL: INICIO
     =========================================== -->
 
     <main>
 
-        <!-- Portada principal -->
+        <!-- Portada principal (Hero) -->
         <section id="inicio" class="hero">
             <div class="container hero-container">
 
@@ -154,72 +154,26 @@
                     </h1>
 
                     <p>
-                        Descubre el poder que
+                        Descubre el poder que las mejores
                         marcas colombianas tienen para ofrecerte.
                         Es momento de un cambio en tu rutina de cuidado capilar.
                     </p>
 
                     <div class="hero-actions">
                         <a
-                            href="#catalogo"
+                            href="catalogo.html"
                             class="button button-primary"
                         >
                             Explorar catálogo
                         </a>
+                        <a
+                            href="arma-tu-kit.html"
+                            class="button button-secondary"
+                        >
+                            Arma tu rutina ✨
+                        </a>
                     </div>
                 </div>
-
-            </div>
-        </section>
-
-
-        <!-- Portada individual de cada marca -->
-        <section
-            id="marca-portada"
-            class="brand-hero"
-            hidden
-        >
-            <div class="container brand-hero-inner">
-
-                <a class="brand-back" href="index.html">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    Volver a todas las marcas
-                </a>
-
-                <div class="brand-logo-frame">
-                    <img
-                        id="brand-logo-image"
-                        src=""
-                        alt=""
-                        hidden
-                    >
-
-                    <span
-                        id="brand-logo-text"
-                        class="brand-logo-text"
-                    >
-                        MILAGROS
-                    </span>
-                </div>
-
-                <span class="section-eyebrow">
-                    CATÁLOGO POR MARCA
-                </span>
-
-                <h1 id="brand-title">
-                    Productos MILAGROS
-                </h1>
-
-                <p id="brand-description">
-                    Descubre los productos de esta marca.
-                </p>
-
-                <a
-                    href="#catalogo"
-                    class="button button-primary"
-                >
-                    Ver productos
-                </a>
 
             </div>
         </section>
@@ -237,7 +191,7 @@
                     <div>
                         <strong>Productos seleccionados</strong>
                         <p>
-                            Opciones pensadas para el cuidado capilar.
+                            Fórmulas colombianas pensadas para cada necesidad capilar.
                         </p>
                     </div>
                 </div>
@@ -250,7 +204,7 @@
                     <div>
                         <strong>Atención personalizada</strong>
                         <p>
-                            Te ayudamos a encontrar lo que necesitas.
+                            Te asesoramos para elegir la rutina exacta de tu cabello.
                         </p>
                     </div>
                 </div>
@@ -263,7 +217,7 @@
                     <div>
                         <strong>Solicita por WhatsApp</strong>
                         <p>
-                            Consulta disponibilidad y realiza tu pedido.
+                            Confirma existencias y realiza tu pedido directo al chat.
                         </p>
                     </div>
                 </div>
@@ -272,127 +226,159 @@
         </section>
 
 
-        <!-- ======================================
-             CATÁLOGO DE PRODUCTOS
-        ======================================= -->
+        <!-- ==========================================
+             NUESTRAS MARCAS (SHOWCASE VISUAL)
+        =========================================== -->
 
-        <section id="catalogo" class="catalogo">
+        <section class="home-brands-section" id="marcas">
             <div class="container">
 
-                <!-- Encabezado del catálogo -->
-                <div class="section-header">
-                    <span class="section-eyebrow">
-                        VEROLA CAPILAR
-                    </span>
-
-                    <h2>Nuestro catálogo</h2>
-
+                <div class="home-section-header">
+                    <span class="section-eyebrow">DISTRIBUIDOR OFICIAL</span>
+                    <h2>Nuestras Marcas</h2>
                     <p>
-                        Explora nuestros productos y selecciona
-                        los que deseas consultar.
+                        Selecciona tu marca favorita para ver su catálogo completo de productos.
                     </p>
                 </div>
 
-                                <!-- Filtros por marca -->
-                <div class="filter-title" id="marcas">
-                    <span>Explora por marca</span>
+                <div class="home-brands-grid">
+
+                    <!-- Milagros -->
+                    <a href="catalogo.html?marca=MILAGROS" class="home-brand-card">
+                        <div class="home-brand-logo">
+                            <img src="img/milagros/logo-milagros.jpeg" alt="Logo Milagros">
+                        </div>
+                        <h3>MILAGROS</h3>
+                        <p>Shampoos anticaída, tratamientos frutales, mágicos y fórmulas naturales.</p>
+                        <span class="home-brand-link">Ver productos <i class="fa-solid fa-arrow-right"></i></span>
+                    </a>
+
+                    <!-- Ritual Botánico -->
+                    <a href="catalogo.html?marca=BOTÁNICO" class="home-brand-card">
+                        <div class="home-brand-logo">
+                            <img src="img/botanico/logo_botanico.jpeg" alt="Logo Ritual Botánico">
+                        </div>
+                        <h3>RITUAL BOTÁNICO</h3>
+                        <p>Keratinas orgánicas, mascarillas jalea real, shampoos S.O.S y plex reconstructor.</p>
+                        <span class="home-brand-link">Ver productos <i class="fa-solid fa-arrow-right"></i></span>
+                    </a>
+
+                    <!-- Click Hair -->
+                    <a href="catalogo.html?marca=CLICK%20HAIR" class="home-brand-card">
+                        <div class="home-brand-logo">
+                            <img src="img/click_hair/Logo_click_hair.jpeg" alt="Logo Click Hair">
+                        </div>
+                        <h3>CLICK HAIR</h3>
+                        <p>Miel capilar con argán, perfumes con glitter y termoprotectores bifásicos.</p>
+                        <span class="home-brand-link">Ver productos <i class="fa-solid fa-arrow-right"></i></span>
+                    </a>
+
+                    <!-- La Poción -->
+                    <a href="catalogo.html?marca=POCIÓN" class="home-brand-card">
+                        <div class="home-brand-logo">
+                            <img src="img/pocion/logo-pocion.jpeg" alt="Logo La Poción">
+                        </div>
+                        <h3>LA POCIÓN</h3>
+                        <p>Tratamientos duales, línea para rizos Tongole, perfumes prahia y tónicos de control.</p>
+                        <span class="home-brand-link">Ver productos <i class="fa-solid fa-arrow-right"></i></span>
+                    </a>
+
+                    <!-- Etniker -->
+                    <a href="catalogo.html?marca=ETNIKER" class="home-brand-card">
+                        <div class="home-brand-logo">
+                            <img src="img/etniker/logo-etniker.jpeg" alt="Logo Etniker">
+                        </div>
+                        <h3>ETNIKER</h3>
+                        <p>Especialistas en cuidado, definición y nutrición para cabellos rizados y afros.</p>
+                        <span class="home-brand-link">Ver productos <i class="fa-solid fa-arrow-right"></i></span>
+                    </a>
+
+                    <!-- Olé -->
+                    <a href="catalogo.html?marca=OLÉ" class="home-brand-card">
+                        <div class="home-brand-logo">
+                            <img src="img/ole/Ole_logo.jpeg" alt="Logo Olé">
+                        </div>
+                        <h3>OLÉ CAPILAR</h3>
+                        <p>Shampoos de jengibre y cebolla, cócteles de frutas, pulpas nutritivas y óleos.</p>
+                        <span class="home-brand-link">Ver productos <i class="fa-solid fa-arrow-right"></i></span>
+                    </a>
+
                 </div>
-
-                                <div
-                    id="categorias"
-                    class="categories"
-                    aria-label="Marcas de productos"
-                >
-                    <!-- Las marcas se generan desde app.js -->
-                </div>
-
-                <!-- Filtros por tipo de producto y Ordenamiento -->
-                <div class="filters-header-row">
-                    <div class="filter-title">
-                        <span>Tipo de producto</span>
-                    </div>
-
-                    <div class="sort-container">
-                        <label for="orden-productos" class="sort-label">
-                            <i class="fa-solid fa-arrow-down-short-wide"></i> Ordenar por:
-                        </label>
-                        <select id="orden-productos" class="sort-select" onchange="cambiarOrden()">
-                            <option value="destacados">Destacados / Recomendados</option>
-                            <option value="precio-menor">Precio: menor a mayor</option>
-                            <option value="precio-mayor">Precio: mayor a menor</option>
-                            <option value="nombre-az">Nombre: A - Z</option>
-                            <option value="ofertas">En oferta</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div
-                    id="tipos-categoria"
-                    class="categories subcategories"
-                    aria-label="Tipos de producto"
-                >
-                    <!-- Los tipos de producto se generan desde app.js -->
-                </div>
-
-                <!-- Contenedor de productos -->
-                <div
-                    id="productos"
-                    class="products-grid"
-                    aria-live="polite"
-                >
-                    <!-- Los productos se generan desde app.js -->
-                </div>
-
-
-                <!-- Paginación de productos -->
-                <nav
-                    id="paginacion"
-                    class="pagination-container"
-                    aria-label="Paginación de productos"
-                >
-                    <!-- Generado dinámicamente desde app.js -->
-                </nav>
 
             </div>
         </section>
 
 
-        <!-- ======================================
-             CONTACTO Y ASESORÍA
-        ======================================= -->
+        <!-- ==========================================
+             BANNER PROMO: ARMA TU KIT EN 3 PASOS
+        =========================================== -->
 
-        <section id="contacto" class="contact-section">
+        <section class="home-kit-promo">
             <div class="container">
 
-                <div class="contact-card">
-
-                    <div class="contact-content">
-                        <span class="section-eyebrow">
-                            ATENCIÓN PERSONALIZADA
-                        </span>
-
-                        <h2>¿Necesitas asesoría?</h2>
-
+                <div class="home-kit-card">
+                    <div class="home-kit-text">
+                        <span class="section-eyebrow">EXPERIENCIA INTERACTIVA</span>
+                        <h2>Arma tu <span>Kit en 3 Pasos</span></h2>
                         <p>
-                            Escríbenos por WhatsApp para recibir
-                            información sobre nuestros productos,
-                            disponibilidad, formas de pago y entrega.
+                            Diseña tu propia rutina capilar personalizada: escoge tu producto favorito de limpieza,
+                            nutrición y protección. ¡Nosotros te lo empacamos listo para tu cabello!
                         </p>
 
-                        <button
-                            type="button"
-                            class="whatsapp-button contact-whatsapp"
-                            onclick="solicitarAsesoriasWhatsApp()"
-                        >
-                            <i class="fa-brands fa-whatsapp"></i>
-                            <span>Habla por WhatsApp</span>
-                        </button>
+                        <div class="home-kit-steps-preview">
+                            <div class="home-kit-step-item">
+                                <span>🧴</span>
+                                <div>1. Shampoo</div>
+                            </div>
+                            <div class="home-kit-step-item">
+                                <span>🥑</span>
+                                <div>2. Mascarilla</div>
+                            </div>
+                            <div class="home-kit-step-item">
+                                <span>✨</span>
+                                <div>3. Termoprotector</div>
+                            </div>
+                        </div>
+
+                        <a href="arma-tu-kit.html" class="button button-primary">
+                            Comenzar a armar mi kit ✨
+                        </a>
                     </div>
 
-                    <div class="contact-decoration">
-                        <span>V</span>
+                    <div class="home-kit-visual">
+                        <div class="home-kit-visual-icon">🛍️</div>
+                        <h4>Tu Rutina Personalizada</h4>
+                        <p>Combina tus marcas favoritas en una sola compra fácil y rápida.</p>
                     </div>
+                </div>
 
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             PRODUCTOS DESTACADOS EN INICIO
+        =========================================== -->
+
+        <section class="home-featured-section">
+            <div class="container">
+
+                <div class="home-section-header">
+                    <span class="section-eyebrow">LOS FAVORITOS</span>
+                    <h2>Productos Destacados</h2>
+                    <p>
+                        Una pequeña muestra de los productos más solicitados por nuestras clientas.
+                    </p>
+                </div>
+
+                <div id="productos-destacados-inicio" class="products-grid">
+                    <!-- Se generan los 4 más destacados desde app.js -->
+                </div>
+
+                <div class="home-featured-footer">
+                    <a href="catalogo.html" class="button button-primary" style="padding: 14px 32px;">
+                        Ver todo el catálogo (120+ productos) <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+                    </a>
                 </div>
 
             </div>
@@ -417,7 +403,6 @@
             aria-labelledby="titulo-carrito"
         >
 
-            <!-- Cabecera -->
             <div class="cart-header">
                 <div>
                     <span class="cart-eyebrow">
@@ -439,20 +424,14 @@
                 </button>
             </div>
 
-            <!-- Productos seleccionados -->
             <div id="carrito-productos">
-                <!-- El contenido se genera desde app.js -->
+                <!-- Se genera desde app.js -->
             </div>
 
-            <!-- Resumen y acciones -->
             <div class="cart-footer">
-
                 <div class="cart-total">
                     <span>Total aproximado</span>
-
-                    <strong id="carrito-total">
-                        $0
-                    </strong>
+                    <strong id="carrito-total">$0</strong>
                 </div>
 
                 <button
@@ -472,7 +451,6 @@
                     <i class="fa-solid fa-trash-can"></i>
                     Vaciar pedido
                 </button>
-
             </div>
 
         </aside>
@@ -503,7 +481,6 @@
 
             <div class="footer-grid">
 
-                <!-- Información de la marca -->
                 <div class="footer-brand">
                     <img
                         src="img/logo-verola.jpeg"
@@ -523,53 +500,27 @@
                     </span>
                 </div>
 
-                <!-- Navegación -->
                 <div class="footer-column">
                     <h4>Explora</h4>
 
                     <ul>
-                        <li><a href="#inicio">Inicio</a></li>
-                        <li><a href="#catalogo">Catálogo</a></li>
-                        <li><a href="#marcas">Nuestras marcas</a></li>
-                        <li><a href="#contacto">Contacto</a></li>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li><a href="arma-tu-kit.html">Arma tu Kit ✨</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
                     </ul>
                 </div>
 
-                <!-- Atención al cliente -->
                 <div class="footer-column">
                     <h4>Atención al cliente</h4>
 
                     <ul>
-                        <li>
-                            <a
-                                href="#contacto"
-                                onclick="solicitarAsesoriasWhatsApp(); return false;"
-                            >
-                                Asesoría personalizada
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="#contacto"
-                                onclick="solicitarAsesoriasWhatsApp(); return false;"
-                            >
-                                Información de productos
-                            </a>
-                        </li>
-
-                        <li>
-                            <a
-                                href="#contacto"
-                                onclick="solicitarAsesoriasWhatsApp(); return false;"
-                            >
-                                Formas de entrega
-                            </a>
-                        </li>
+                        <li><a href="contacto.html">Asesoría personalizada</a></li>
+                        <li><a href="contacto.html">Información de productos</a></li>
+                        <li><a href="contacto.html">Formas de entrega</a></li>
                     </ul>
                 </div>
 
-                <!-- Contacto por WhatsApp -->
                 <div class="footer-column footer-contact">
                     <h4>¿Necesitas ayuda?</h4>
 
@@ -590,40 +541,16 @@
 
             </div>
 
-
-            <!-- Redes sociales -->
             <div class="footer-social">
                 <h4>Síguenos en nuestras redes</h4>
 
                 <div class="social-links">
-                    <a
-                        href="#"
-                        aria-label="Instagram"
-                        title="Instagram"
-                    >
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-
-                    <a
-                        href="#"
-                        aria-label="Facebook"
-                        title="Facebook"
-                    >
-                        <i class="fa-brands fa-facebook-f"></i>
-                    </a>
-
-                    <a
-                        href="#"
-                        aria-label="TikTok"
-                        title="TikTok"
-                    >
-                        <i class="fa-brands fa-tiktok"></i>
-                    </a>
+                    <a href="#" aria-label="Instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" aria-label="TikTok" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
 
-
-            <!-- Información legal y navegación superior -->
             <div class="footer-bottom">
                 <p>
                     © <span id="footer-year"></span>

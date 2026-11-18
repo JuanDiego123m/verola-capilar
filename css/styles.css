@@ -1,4 +1,3 @@
-
 /* ==========================================
    VEROLA CAPILAR
    ARCHIVO PRINCIPAL DE ESTILOS
@@ -12,8 +11,8 @@
 
 @import url("./catalogo.css");
 @import url("./productos.css");
-/* @import url("./gallery.css"); */
 @import url("./marcas.css");
+@import url("./home.css");
 
 @import url("./contacto.css");
 @import url("./carrito.css");

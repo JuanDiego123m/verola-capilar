@@ -321,6 +321,15 @@
     width: 100%;
 }
 
+.nav a.active {
+    color: var(--rosa-oscuro);
+}
+
+.nav a.active::after {
+    width: 100%;
+}
+
+
 .nav a:focus-visible {
     outline: 2px solid var(--rosa-oscuro);
     outline-offset: 6px;

@@ -1,0 +1,9 @@
+# Respaldos locales (no subir a GitHub)
+.backup_*/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de editor (opcional, quita si quieres compartir la config de VS Code)
+.vscode/settings.json
