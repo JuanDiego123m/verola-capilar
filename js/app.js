@@ -11,6 +11,9 @@ const numeroWhatsApp = "573218963327";
 const imagenPredeterminada =
     "https://placehold.co/600x600/f7f2ef/a96f6b?text=VEROLA+CAPILAR";
 
+const PRODUCTOS_POR_PAGINA = 8;
+let paginaActual = 1;
+let productosFiltradosActuales = [];
 let carrito = [];
 
 function obtenerProductos() {
@@ -206,6 +209,18 @@ function configurarVistaMarca() {
     document.title = `${config.nombre} | VEROLA CAPILAR`;
 }
 
+function actualizarPlaceholderBuscador() {
+    const buscador = document.getElementById("buscador");
+    if (!buscador) return;
+
+    if (marcaActual !== "TODAS") {
+        const config = obtenerConfiguracionMarca(marcaActual);
+        const nombreMarca = config?.nombre || marcaActual;
+        buscador.placeholder = `Buscar productos de ${nombreMarca}...`;
+    } else {
+        buscador.placeholder = "Buscar productos, marcas o características...";
+    }
+}
 
 
 /* =========================================================
@@ -551,10 +566,12 @@ function mostrarProductos(lista = obtenerProductos()) {
 
         const descripcionElemento = tarjeta.querySelector(".product-description");
         const descripcion = String(producto.descripcion || "");
-        descripcionElemento.textContent =
-            descripcion.length > 115
-                ? `${descripcion.slice(0, 115).trim()}...`
-                : descripcion;
+        if (descripcionElemento) {
+            descripcionElemento.textContent =
+                descripcion.length > 115
+                    ? `${descripcion.slice(0, 115).trim()}...`
+                    : descripcion;
+        }
 
         contenedor.appendChild(tarjeta);
 
@@ -616,6 +633,7 @@ function mostrarMarcas() {
 
 function seleccionarMarca(marca) {
     marcaActual = marca === "Todas" ? "TODAS" : normalizarMarca(marca);
+    paginaActual = 1;
 
     const nuevaURL = marcaActual === "TODAS"
         ? "index.html"
@@ -624,6 +642,7 @@ function seleccionarMarca(marca) {
     window.history.pushState({}, "", nuevaURL);
 
     configurarVistaMarca();
+    actualizarPlaceholderBuscador();
     mostrarMarcas();
     filtrarProductos();
 
@@ -633,14 +652,16 @@ function seleccionarMarca(marca) {
 
 window.addEventListener("popstate", () => {
     marcaActual = obtenerMarcaInicial();
+    paginaActual = 1;
     configurarVistaMarca();
+    actualizarPlaceholderBuscador();
     mostrarMarcas();
     filtrarProductos();
 });
 
 
 /* =========================================================
-   10. BUSCADOR Y FILTROS
+   10. BUSCADOR, FILTROS Y PAGINACIÓN
 ========================================================= */
 
 function filtrarProductos() {
@@ -667,19 +688,200 @@ function filtrarProductos() {
             .toLocaleLowerCase("es-CO");
 
         const coincideBusqueda = contenidoBusqueda.includes(texto);
-        const visibleEnInicio =
-            marcaActual !== "TODAS" ||
-            texto !== "" ||
-            producto.destacado === true;
 
-        return coincideMarca && coincideBusqueda && visibleEnInicio;
+        return coincideMarca && coincideBusqueda;
     });
 
-    mostrarProductos(resultado);
+    // En vista "TODAS" sin búsqueda, destacar los productos destacados primero
+    if (marcaActual === "TODAS" && texto === "") {
+        resultado.sort((a, b) => (b.destacado ? 1 : 0) - (a.destacado ? 1 : 0));
+    }
+
+    productosFiltradosActuales = resultado;
+
+    const totalPaginas = Math.ceil(resultado.length / PRODUCTOS_POR_PAGINA) || 1;
+    if (paginaActual > totalPaginas) {
+        paginaActual = 1;
+    }
+
+    renderizarPaginaActual();
 }
 
+function renderizarPaginaActual() {
+    const contenedor = document.getElementById("productos");
+    const contenedorPaginacion = document.getElementById("paginacion");
+    if (!contenedor) return;
+
+    if (!productosFiltradosActuales.length) {
+        contenedor.innerHTML = `
+            <div class="no-results">
+                <div class="no-results-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <h3>No encontramos productos</h3>
+                <p>Intenta realizar otra búsqueda o seleccionar otra marca.</p>
+            </div>
+        `;
+        if (contenedorPaginacion) {
+            contenedorPaginacion.innerHTML = "";
+            contenedorPaginacion.hidden = true;
+        }
+        return;
+    }
+
+    const inicio = (paginaActual - 1) * PRODUCTOS_POR_PAGINA;
+    const fin = inicio + PRODUCTOS_POR_PAGINA;
+    const productosPagina = productosFiltradosActuales.slice(inicio, fin);
+
+    mostrarProductos(productosPagina);
+    renderizarPaginacion(productosFiltradosActuales.length, paginaActual);
+}
+
+function renderizarPaginacion(totalProductos, pagina) {
+    const contenedor = document.getElementById("paginacion");
+    if (!contenedor) return;
+
+    const totalPaginas = Math.ceil(totalProductos / PRODUCTOS_POR_PAGINA);
+
+    if (totalPaginas <= 1) {
+        contenedor.innerHTML = "";
+        contenedor.hidden = true;
+        return;
+    }
+
+    contenedor.hidden = false;
+
+    let botonesPaginas = [];
+    if (totalPaginas <= 7) {
+        for (let i = 1; i <= totalPaginas; i++) {
+            botonesPaginas.push(i);
+        }
+    } else {
+        if (pagina <= 4) {
+            botonesPaginas = [1, 2, 3, 4, 5, "...", totalPaginas];
+        } else if (pagina >= totalPaginas - 3) {
+            botonesPaginas = [1, "...", totalPaginas - 4, totalPaginas - 3, totalPaginas - 2, totalPaginas - 1, totalPaginas];
+        } else {
+            botonesPaginas = [1, "...", pagina - 1, pagina, pagina + 1, "...", totalPaginas];
+        }
+    }
+
+    const inicioIndice = (pagina - 1) * PRODUCTOS_POR_PAGINA + 1;
+    const finIndice = Math.min(pagina * PRODUCTOS_POR_PAGINA, totalProductos);
+
+    contenedor.innerHTML = `
+        <div class="pagination-info">
+            Mostrando <strong>${inicioIndice}-${finIndice}</strong> de <strong>${totalProductos}</strong> productos
+        </div>
+        <div class="pagination-controls">
+            <button
+                type="button"
+                class="pagination-btn pagination-prev"
+                ${pagina === 1 ? "disabled" : ""}
+                aria-label="Página anterior"
+            >
+                <i class="fa-solid fa-chevron-left"></i>
+                <span>Anterior</span>
+            </button>
+
+            <div class="pagination-numbers">
+                ${botonesPaginas.map(item => {
+                    if (item === "...") {
+                        return `<span class="pagination-ellipsis">...</span>`;
+                    }
+                    const esActivo = item === pagina;
+                    return `
+                        <button
+                            type="button"
+                            class="pagination-number ${esActivo ? "active" : ""}"
+                            data-pagina="${item}"
+                            ${esActivo ? 'aria-current="page"' : ""}
+                            aria-label="Página ${item}"
+                        >
+                            ${item}
+                        </button>
+                    `;
+                }).join("")}
+            </div>
+
+            <button
+                type="button"
+                class="pagination-btn pagination-next"
+                ${pagina === totalPaginas ? "disabled" : ""}
+                aria-label="Página siguiente"
+            >
+                <span>Siguiente</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    `;
+
+    contenedor.querySelector(".pagination-prev")?.addEventListener("click", () => {
+        cambiarPagina(pagina - 1);
+    });
+
+    contenedor.querySelector(".pagination-next")?.addEventListener("click", () => {
+        cambiarPagina(pagina + 1);
+    });
+
+    contenedor.querySelectorAll(".pagination-number").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const num = Number(btn.dataset.pagina);
+            if (num && num !== pagina) {
+                cambiarPagina(num);
+            }
+        });
+    });
+}
+
+function cambiarPagina(nuevaPagina) {
+    const totalPaginas = Math.ceil(productosFiltradosActuales.length / PRODUCTOS_POR_PAGINA) || 1;
+    if (nuevaPagina < 1 || nuevaPagina > totalPaginas || nuevaPagina === paginaActual) return;
+
+    paginaActual = nuevaPagina;
+    renderizarPaginaActual();
+
+    const catalogo = document.getElementById("catalogo");
+    if (catalogo) {
+        const yOffset = -90;
+        const y = catalogo.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+    }
+}
 
 function buscarProductos() {
+    const buscador = document.getElementById("buscador");
+    const clearBtn = document.getElementById("buscador-clear");
+
+    if (clearBtn) {
+        clearBtn.hidden = !buscador?.value;
+    }
+
+    paginaActual = 1;
+    filtrarProductos();
+
+    if (buscador && buscador.value.trim().length > 0) {
+        const catalogo = document.getElementById("catalogo");
+        if (catalogo) {
+            const rect = catalogo.getBoundingClientRect();
+            if (rect.top > 130) {
+                const yOffset = -90;
+                const y = rect.top + window.pageYOffset + yOffset;
+                window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+            }
+        }
+    }
+}
+
+function limpiarBuscador() {
+    const buscador = document.getElementById("buscador");
+    if (buscador) {
+        buscador.value = "";
+        buscador.focus();
+    }
+    const clearBtn = document.getElementById("buscador-clear");
+    if (clearBtn) {
+        clearBtn.hidden = true;
+    }
+    paginaActual = 1;
     filtrarProductos();
 }
 
@@ -1008,14 +1210,16 @@ document.addEventListener("keydown", event => {
 
 document.addEventListener("DOMContentLoaded", () => {
     configurarVistaMarca();
+    actualizarPlaceholderBuscador();
     mostrarMarcas();
     filtrarProductos();
     actualizarCarrito();
     actualizarAnioFooter();
 
     const buscador = document.getElementById("buscador");
-    if (buscador && marcaActual !== "TODAS") {
-        buscador.placeholder = `Buscar productos de ${marcaActual}...`;
+    const clearBtn = document.getElementById("buscador-clear");
+    if (buscador && clearBtn) {
+        clearBtn.hidden = !buscador.value;
     }
 
     crearModalDetalles();

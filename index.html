@@ -59,6 +59,38 @@
                 >
             </a>
 
+            <!-- Buscador en la parte superior -->
+            <div class="header-search">
+                <div class="search-box">
+                    <span
+                        class="search-icon"
+                        aria-hidden="true"
+                    >
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+
+                    <input
+                        type="search"
+                        id="buscador"
+                        placeholder="Buscar productos, marcas o características..."
+                        autocomplete="off"
+                        oninput="buscarProductos()"
+                        aria-label="Buscar productos"
+                    >
+
+                    <button
+                        type="button"
+                        id="buscador-clear"
+                        class="search-clear-btn"
+                        onclick="limpiarBuscador()"
+                        aria-label="Limpiar búsqueda"
+                        hidden
+                    >
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
             <!-- Menú principal -->
             <nav class="nav" aria-label="Navegación principal">
                 <a href="index.html">Inicio</a>
@@ -258,30 +290,7 @@
                     </p>
                 </div>
 
-                <!-- Buscador -->
-                <div class="search-container">
-                    <div class="search-box">
-
-                        <span
-                            class="search-icon"
-                            aria-hidden="true"
-                        >
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </span>
-
-                        <input
-                            type="search"
-                            id="buscador"
-                            placeholder="Buscar productos, marcas o características..."
-                            autocomplete="off"
-                            oninput="buscarProductos()"
-                            aria-label="Buscar productos"
-                        >
-
-                    </div>
-                </div>
-
-                <!-- Filtros por marca -->
+                                <!-- Filtros por marca -->
                 <div class="filter-title" id="marcas">
                     <span>Explora por marca</span>
                 </div>
@@ -302,6 +311,16 @@
                 >
                     <!-- Los productos se generan desde app.js -->
                 </div>
+
+
+                <!-- Paginación de productos -->
+                <nav
+                    id="paginacion"
+                    class="pagination-container"
+                    aria-label="Paginación de productos"
+                >
+                    <!-- Generado dinámicamente desde app.js -->
+                </nav>
 
             </div>
         </section>
