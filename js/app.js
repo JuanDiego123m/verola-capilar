@@ -11,10 +11,41 @@ const numeroWhatsApp = "573218963327";
 const imagenPredeterminada =
     "https://placehold.co/600x600/f7f2ef/a96f6b?text=VEROLA+CAPILAR";
 
+const CLAVE_STORAGE_CARRITO = "verola_carrito_v1";
+
+function cargarCarritoStorage() {
+    try {
+        if (typeof localStorage !== "undefined") {
+            const guardado = localStorage.getItem(CLAVE_STORAGE_CARRITO);
+            if (guardado) {
+                const parseado = JSON.parse(guardado);
+                if (Array.isArray(parseado)) {
+                    return parseado;
+                }
+            }
+        }
+    } catch (e) {
+        console.error("Error al cargar carrito desde localStorage:", e);
+    }
+    return [];
+}
+
+function guardarCarritoStorage() {
+    try {
+        if (typeof localStorage !== "undefined") {
+            localStorage.setItem(CLAVE_STORAGE_CARRITO, JSON.stringify(carrito));
+        }
+    } catch (e) {
+        console.error("Error al guardar carrito en localStorage:", e);
+    }
+}
+
 const PRODUCTOS_POR_PAGINA = 8;
 let paginaActual = 1;
+let categoriaActual = "TODAS";
+let ordenActual = "destacados";
 let productosFiltradosActuales = [];
-let carrito = [];
+let carrito = cargarCarritoStorage();
 
 function obtenerProductos() {
     return Array.isArray(window.productos) ? window.productos : [];
@@ -626,6 +657,79 @@ function mostrarMarcas() {
     });
 }
 
+/* =========================================================
+   8.1 MOSTRAR TIPOS DE CATEGORÍA Y ORDENAMIENTO (OPCIÓN 1 Y 5)
+========================================================= */
+
+function normalizarCategoria(cat) {
+    const c = String(cat || "").trim().toLowerCase();
+    if (c.includes("shampoo")) return "Shampoos";
+    if (c.includes("acondicionador")) return "Acondicionadores";
+    if (c.includes("tratamiento")) return "Tratamientos";
+    if (c.includes("mascarilla")) return "Mascarillas";
+    if (c.includes("perfume")) return "Perfumes";
+    if (c.includes("keratina")) return "Keratinas";
+    if (c.includes("finaliza")) return "Finalizadores";
+    return cat ? cat.trim() : "Otros";
+}
+
+function obtenerCategoriasDisponibles() {
+    return [
+        "Todos los tipos",
+        "Shampoos",
+        "Acondicionadores",
+        "Tratamientos",
+        "Mascarillas",
+        "Finalizadores",
+        "Perfumes",
+        "Keratinas"
+    ];
+}
+
+function mostrarCategoriasTipos() {
+    const contenedor = document.getElementById("tipos-categoria");
+    if (!contenedor) return;
+
+    const categorias = obtenerCategoriasDisponibles();
+    contenedor.innerHTML = "";
+
+    categorias.forEach(cat => {
+        const boton = document.createElement("button");
+        boton.type = "button";
+        boton.textContent = cat;
+
+        const esActiva = cat === "Todos los tipos"
+            ? categoriaActual === "TODAS"
+            : categoriaActual === cat;
+
+        boton.className = esActiva
+            ? "category-button subcategory-button active"
+            : "category-button subcategory-button";
+
+        boton.addEventListener("click", () => {
+            seleccionarCategoria(cat);
+        });
+
+        contenedor.appendChild(boton);
+    });
+}
+
+function seleccionarCategoria(cat) {
+    categoriaActual = (cat === "Todos los tipos" || cat === "Todas") ? "TODAS" : cat;
+    paginaActual = 1;
+    mostrarCategoriasTipos();
+    filtrarProductos();
+    document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" });
+}
+
+function cambiarOrden() {
+    const select = document.getElementById("orden-productos");
+    if (select) {
+        ordenActual = select.value;
+    }
+    paginaActual = 1;
+    filtrarProductos();
+}
 
 /* =========================================================
    9. SELECCIONAR MARCA
@@ -633,6 +737,7 @@ function mostrarMarcas() {
 
 function seleccionarMarca(marca) {
     marcaActual = marca === "Todas" ? "TODAS" : normalizarMarca(marca);
+    categoriaActual = "TODAS";
     paginaActual = 1;
 
     const nuevaURL = marcaActual === "TODAS"
@@ -644,6 +749,7 @@ function seleccionarMarca(marca) {
     configurarVistaMarca();
     actualizarPlaceholderBuscador();
     mostrarMarcas();
+    mostrarCategoriasTipos();
     filtrarProductos();
 
     document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" });
@@ -652,16 +758,18 @@ function seleccionarMarca(marca) {
 
 window.addEventListener("popstate", () => {
     marcaActual = obtenerMarcaInicial();
+    categoriaActual = "TODAS";
     paginaActual = 1;
     configurarVistaMarca();
     actualizarPlaceholderBuscador();
     mostrarMarcas();
+    mostrarCategoriasTipos();
     filtrarProductos();
 });
 
 
 /* =========================================================
-   10. BUSCADOR, FILTROS Y PAGINACIÓN
+   10. BUSCADOR, FILTROS, ORDENAMIENTO Y PAGINACIÓN
 ========================================================= */
 
 function filtrarProductos() {
@@ -673,6 +781,10 @@ function filtrarProductos() {
         const coincideMarca =
             marcaActual === "TODAS" ||
             normalizarMarca(producto.marca) === marcaActual;
+
+        const coincideCategoria =
+            categoriaActual === "TODAS" ||
+            normalizarCategoria(producto.categoria) === categoriaActual;
 
         const detalles = obtenerDetallesProducto(producto).join(" ");
         const contenidoBusqueda = [
@@ -689,12 +801,33 @@ function filtrarProductos() {
 
         const coincideBusqueda = contenidoBusqueda.includes(texto);
 
-        return coincideMarca && coincideBusqueda;
+        return coincideMarca && coincideCategoria && coincideBusqueda;
     });
 
-    // En vista "TODAS" sin búsqueda, destacar los productos destacados primero
-    if (marcaActual === "TODAS" && texto === "") {
-        resultado.sort((a, b) => (b.destacado ? 1 : 0) - (a.destacado ? 1 : 0));
+    // Ordenamiento (Opción 5)
+    switch (ordenActual) {
+        case "precio-menor":
+            resultado.sort((a, b) => obtenerPrecioFinal(a) - obtenerPrecioFinal(b));
+            break;
+        case "precio-mayor":
+            resultado.sort((a, b) => obtenerPrecioFinal(b) - obtenerPrecioFinal(a));
+            break;
+        case "nombre-az":
+            resultado.sort((a, b) => String(a.nombre || "").localeCompare(String(b.nombre || ""), "es"));
+            break;
+        case "ofertas":
+            resultado.sort((a, b) => {
+                const descB = tieneDescuento(b) ? (Number(b.precio) - obtenerPrecioFinal(b)) : 0;
+                const descA = tieneDescuento(a) ? (Number(a.precio) - obtenerPrecioFinal(a)) : 0;
+                return descB - descA;
+            });
+            break;
+        case "destacados":
+        default:
+            if (marcaActual === "TODAS" && texto === "") {
+                resultado.sort((a, b) => (b.destacado ? 1 : 0) - (a.destacado ? 1 : 0));
+            }
+            break;
     }
 
     productosFiltradosActuales = resultado;
@@ -717,7 +850,7 @@ function renderizarPaginaActual() {
             <div class="no-results">
                 <div class="no-results-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
                 <h3>No encontramos productos</h3>
-                <p>Intenta realizar otra búsqueda o seleccionar otra marca.</p>
+                <p>Intenta realizar otra búsqueda, cambiar el filtro de categoría o seleccionar otra marca.</p>
             </div>
         `;
         if (contenedorPaginacion) {
@@ -847,18 +980,115 @@ function cambiarPagina(nuevaPagina) {
     }
 }
 
+/* =========================================================
+   AUTOCOMPLETADO / SUGERENCIAS RÁPIDAS (OPCIÓN 7)
+========================================================= */
+
+function actualizarAutocompletado(texto) {
+    const dropdown = document.getElementById("search-autocomplete");
+    if (!dropdown) return;
+
+    const query = String(texto || "").trim().toLocaleLowerCase("es-CO");
+    if (query.length < 2) {
+        dropdown.innerHTML = "";
+        dropdown.hidden = true;
+        return;
+    }
+
+    const todos = obtenerProductos();
+    const coincidencias = todos.filter(producto => {
+        const detalles = obtenerDetallesProducto(producto).join(" ");
+        const contenido = [
+            producto.nombre,
+            producto.descripcion,
+            producto.marca,
+            producto.presentacion,
+            producto.categoria,
+            detalles
+        ].filter(Boolean).join(" ").toLocaleLowerCase("es-CO");
+        return contenido.includes(query);
+    });
+
+    if (!coincidencias.length) {
+        dropdown.innerHTML = `
+            <div class="autocomplete-empty">
+                No hay sugerencias para "${escaparHTML(texto)}"
+            </div>
+        `;
+        dropdown.hidden = false;
+        return;
+    }
+
+    const maxItems = 4;
+    const topResultados = coincidencias.slice(0, maxItems);
+
+    dropdown.innerHTML = `
+        <div class="autocomplete-list">
+            ${topResultados.map(p => {
+                const img = p.imagen || obtenerImagenesProducto(p)[0] || imagenPredeterminada;
+                const precio = obtenerPrecioFinal(p);
+                return `
+                    <div class="autocomplete-item" data-autocomplete-id="${escaparHTML(p.id)}">
+                        <img src="${escaparHTML(img)}" alt="${escaparHTML(p.nombre)}" onerror="this.onerror=null;this.src='${imagenPredeterminada}'">
+                        <div class="autocomplete-info">
+                            <span class="autocomplete-brand">${escaparHTML(p.marca || "VEROLA")}</span>
+                            <h4>${escaparHTML(p.nombre)}</h4>
+                            <div class="autocomplete-price">${formatearPrecio(precio)}</div>
+                        </div>
+                    </div>
+                `;
+            }).join("")}
+        </div>
+        <div class="autocomplete-footer" id="autocomplete-ver-todos">
+            <span>Ver todos los resultados (${coincidencias.length} productos)</span>
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>
+    `;
+
+    dropdown.hidden = false;
+
+    dropdown.querySelectorAll(".autocomplete-item").forEach(item => {
+        item.addEventListener("click", () => {
+            const id = item.dataset.autocompleteId;
+            cerrarAutocompletado();
+            mostrarDetalleProducto(id);
+        });
+    });
+
+    dropdown.querySelector("#autocomplete-ver-todos")?.addEventListener("click", () => {
+        cerrarAutocompletado();
+        const catalogo = document.getElementById("catalogo");
+        if (catalogo) {
+            const yOffset = -90;
+            const y = catalogo.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+        }
+    });
+}
+
+function cerrarAutocompletado() {
+    const dropdown = document.getElementById("search-autocomplete");
+    if (dropdown) {
+        dropdown.innerHTML = "";
+        dropdown.hidden = true;
+    }
+}
+
 function buscarProductos() {
     const buscador = document.getElementById("buscador");
     const clearBtn = document.getElementById("buscador-clear");
+    const valor = buscador?.value || "";
 
     if (clearBtn) {
-        clearBtn.hidden = !buscador?.value;
+        clearBtn.hidden = !valor;
     }
+
+    actualizarAutocompletado(valor);
 
     paginaActual = 1;
     filtrarProductos();
 
-    if (buscador && buscador.value.trim().length > 0) {
+    if (valor.trim().length > 0) {
         const catalogo = document.getElementById("catalogo");
         if (catalogo) {
             const rect = catalogo.getBoundingClientRect();
@@ -881,6 +1111,7 @@ function limpiarBuscador() {
     if (clearBtn) {
         clearBtn.hidden = true;
     }
+    cerrarAutocompletado();
     paginaActual = 1;
     filtrarProductos();
 }
@@ -927,6 +1158,7 @@ function agregarAlCarrito(id) {
 ========================================================= */
 
 function actualizarCarrito() {
+    guardarCarritoStorage();
     const contenedor = document.getElementById("carrito-productos");
     const contador = document.getElementById("contador-carrito");
     const totalElemento = document.getElementById("carrito-total");
@@ -1044,6 +1276,7 @@ function vaciarCarrito() {
         return;
     }
     carrito = [];
+    guardarCarritoStorage();
     actualizarCarrito();
     mostrarNotificacion("El pedido fue vaciado.");
 }
@@ -1200,6 +1433,13 @@ document.addEventListener("keydown", event => {
     if (event.key === "Escape") {
         cerrarCarrito();
         cerrarDetalleProducto();
+        cerrarAutocompletado();
+    }
+});
+
+document.addEventListener("click", event => {
+    if (!event.target.closest(".header-search")) {
+        cerrarAutocompletado();
     }
 });
 
@@ -1212,6 +1452,7 @@ document.addEventListener("DOMContentLoaded", () => {
     configurarVistaMarca();
     actualizarPlaceholderBuscador();
     mostrarMarcas();
+    mostrarCategoriasTipos();
     filtrarProductos();
     actualizarCarrito();
     actualizarAnioFooter();

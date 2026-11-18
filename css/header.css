@@ -161,6 +161,123 @@
 }
 
 /* ==========================================
+   AUTOCOMPLETADO / SUGERENCIAS RÁPIDAS
+========================================== */
+
+.search-autocomplete {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    box-shadow: 0 12px 35px rgba(91, 65, 58, 0.16);
+    overflow: hidden;
+    z-index: 1050;
+    animation: aparecerAutocomplete 0.2s ease;
+}
+
+@keyframes aparecerAutocomplete {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.search-autocomplete[hidden] {
+    display: none;
+}
+
+.autocomplete-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--nude-claro);
+    transition: background 0.18s ease;
+}
+
+.autocomplete-item:last-of-type {
+    border-bottom: none;
+}
+
+.autocomplete-item:hover {
+    background: var(--rosa-muy-claro);
+}
+
+.autocomplete-item img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    background: var(--fondo);
+    border-radius: 8px;
+    padding: 2px;
+    flex-shrink: 0;
+}
+
+.autocomplete-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.autocomplete-brand {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--rosa-oscuro);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.autocomplete-info h4 {
+    margin: 2px 0;
+    font-size: 0.82rem;
+    color: var(--texto);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 700;
+}
+
+.autocomplete-price {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--rosa-oscuro);
+}
+
+.autocomplete-footer {
+    padding: 10px 14px;
+    background: var(--fondo-secundario);
+    color: var(--rosa-oscuro);
+    font-size: 0.78rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.autocomplete-footer:hover {
+    background: var(--rosa-muy-claro);
+    color: var(--rosa);
+}
+
+.autocomplete-empty {
+    padding: 14px;
+    text-align: center;
+    color: var(--texto-secundario);
+    font-size: 0.82rem;
+}
+
+
+/* ==========================================
    NAVEGACIÓN
 ========================================== */
 

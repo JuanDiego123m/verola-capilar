@@ -78,7 +78,7 @@
                         aria-label="Buscar productos"
                     >
 
-                    <button
+                                        <button
                         type="button"
                         id="buscador-clear"
                         class="search-clear-btn"
@@ -88,6 +88,9 @@
                     >
                         <i class="fa-solid fa-xmark"></i>
                     </button>
+
+                    <!-- Sugerencias de búsqueda rápida -->
+                    <div id="search-autocomplete" class="search-autocomplete" hidden></div>
                 </div>
             </div>
 
@@ -295,12 +298,40 @@
                     <span>Explora por marca</span>
                 </div>
 
-                <div
+                                <div
                     id="categorias"
                     class="categories"
                     aria-label="Marcas de productos"
                 >
                     <!-- Las marcas se generan desde app.js -->
+                </div>
+
+                <!-- Filtros por tipo de producto y Ordenamiento -->
+                <div class="filters-header-row">
+                    <div class="filter-title">
+                        <span>Tipo de producto</span>
+                    </div>
+
+                    <div class="sort-container">
+                        <label for="orden-productos" class="sort-label">
+                            <i class="fa-solid fa-arrow-down-short-wide"></i> Ordenar por:
+                        </label>
+                        <select id="orden-productos" class="sort-select" onchange="cambiarOrden()">
+                            <option value="destacados">Destacados / Recomendados</option>
+                            <option value="precio-menor">Precio: menor a mayor</option>
+                            <option value="precio-mayor">Precio: mayor a menor</option>
+                            <option value="nombre-az">Nombre: A - Z</option>
+                            <option value="ofertas">En oferta</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div
+                    id="tipos-categoria"
+                    class="categories subcategories"
+                    aria-label="Tipos de producto"
+                >
+                    <!-- Los tipos de producto se generan desde app.js -->
                 </div>
 
                 <!-- Contenedor de productos -->
