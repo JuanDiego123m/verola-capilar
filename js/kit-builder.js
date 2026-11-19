@@ -9,7 +9,7 @@
         filtroMarca: "TODAS",
         pasos: {
             1: {
-                titulo: "1. Fase de Limpieza",
+                titulo: "1. Fase de Hidratación",
                 subtitulo: "Elige el shampoo ideal para tu tipo de raíz y necesidad capilar",
                 icono: "🧴",
                 filtro: p => normalizarCategoria(p.categoria) === "Shampoos",
@@ -23,7 +23,7 @@
                 seleccionado: null
             },
             3: {
-                titulo: "3. Fase de Protección y Brillo",
+                titulo: "3. Fase de Reparación",
                 subtitulo: "Elige un termoprotector, óleo capilar o perfume para sellar y dar brillo",
                 icono: "✨",
                 filtro: p => ["Finalizadores", "Perfumes", "Keratinas"].includes(normalizarCategoria(p.categoria)),
@@ -64,15 +64,15 @@
                 <div class="kit-stepper" id="kit-stepper">
                     <button type="button" class="kit-step-btn active" data-step="1">
                         <span class="step-number">1</span>
-                        <span>Limpieza (Shampoo)</span>
+                        <span>Hidratación</span>
                     </button>
                     <button type="button" class="kit-step-btn" data-step="2">
                         <span class="step-number">2</span>
-                        <span>Nutrición (Tratamiento)</span>
+                        <span>Nutrición</span>
                     </button>
                     <button type="button" class="kit-step-btn" data-step="3">
                         <span class="step-number">3</span>
-                        <span>Protección y Brillo</span>
+                        <span>Reparación</span>
                     </button>
                 </div>
 
